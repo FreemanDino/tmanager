@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import 'package:tmanager/main_app/main_page.dart';
+import 'package:tmanager/service/user_service.dart';
 
 import 'registration_screen.dart';
 
@@ -15,8 +15,7 @@ class VerificationScreenState extends State<VerificationScreen> {
   final _generatedCode = '123456';
   Future<void> _verifyCode() async {
     if (_codeController.text == _generatedCode) {
-      SharedPreferences prefs = await SharedPreferences.getInstance();
-      await prefs.setBool('isVerified', true);
+      await UserService.instance.verifyUser();
       if (mounted) {
         Navigator.pushReplacement(
           context,

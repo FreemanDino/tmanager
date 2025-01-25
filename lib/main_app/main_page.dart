@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:tmanager/main_app/main_page_screen.dart';
 import 'package:tmanager/main_app/profile_page.dart';
+import 'package:tmanager/main_app/widget/logo_text.dart';
 
 class MainPage extends StatefulWidget {
   const MainPage({super.key});
@@ -10,10 +11,6 @@ class MainPage extends StatefulWidget {
 
 class MainPageState extends State<MainPage> {
   int _currentIndex = 0;
-  final List<Widget> _pages = [
-    MainPageScreen(),
-    ProfilePage(),
-  ];
 
   @override
   Widget build(BuildContext context) {
@@ -23,40 +20,21 @@ class MainPageState extends State<MainPage> {
         backgroundColor: Colors.black,
         elevation: 0,
         centerTitle: true,
-        title: RichText(
-          text: TextSpan(
-            children: [
-              TextSpan(
-                text: 'T',
-                style: TextStyle(
-                  color: Colors.red,
-                  fontFamily: 'Roboto',
-                  fontWeight: FontWeight.bold,
-                  fontSize: 24,
-                ),
-              ),
-              TextSpan(
-                text: 'Manager',
-                style: TextStyle(
-                  color: Colors.white,
-                  fontFamily: 'Roboto',
-                  fontWeight: FontWeight.bold,
-                  fontSize: 24,
-                ),
-              ),
-            ],
-          ),
-        ),
+        title: const LogoText(),
       ),
       body: IndexedStack(
         index: _currentIndex,
-        children: _pages, // Список всех страниц
+        children: const [
+          MainPageScreen(),
+          ProfilePage(),
+          Placeholder(),
+        ], // Список всех страниц
       ),
       bottomNavigationBar: BottomNavigationBar(
         backgroundColor: Colors.black,
         selectedItemColor: Colors.red,
         unselectedItemColor: Colors.white,
-        items: [
+        items: const [
           BottomNavigationBarItem(
             icon: Icon(Icons.home),
             label: 'Главная',
@@ -70,8 +48,8 @@ class MainPageState extends State<MainPage> {
             label: 'Настройки',
           ),
         ],
-          currentIndex: _currentIndex,
-          onTap: (index) {
+        currentIndex: _currentIndex,
+        onTap: (index) {
           setState(() {
             _currentIndex = index;
           });

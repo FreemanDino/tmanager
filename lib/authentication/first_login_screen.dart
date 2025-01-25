@@ -46,10 +46,10 @@ class FirstLoginScreen extends StatelessWidget {
               children: [
                 ElevatedButton(
                   onPressed: () async {
-                    SharedPreferences prefs = await SharedPreferences.getInstance();
+                    final prefs = await SharedPreferences.getInstance();
                     await prefs.setBool('hasAccount', true);
                     if (context.mounted) {
-                      Navigator.pushReplacement(
+                      await Navigator.pushReplacement(
                         context,
                         MaterialPageRoute(builder: (context) => const RegistrationScreen()),
                       );
