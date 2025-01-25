@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-
-import 'registration_screen.dart';
 
 class FirstLoginScreen extends StatelessWidget {
   const FirstLoginScreen({super.key});
@@ -49,10 +48,7 @@ class FirstLoginScreen extends StatelessWidget {
                     final prefs = await SharedPreferences.getInstance();
                     await prefs.setBool('hasAccount', true);
                     if (context.mounted) {
-                      await Navigator.pushReplacement(
-                        context,
-                        MaterialPageRoute(builder: (context) => const RegistrationScreen()),
-                      );
+                      context.go('/register');
                     }
                   },
                   style: ElevatedButton.styleFrom(

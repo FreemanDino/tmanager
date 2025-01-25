@@ -1,9 +1,9 @@
 import 'package:go_router/go_router.dart';
 import '../authentication/first_login_screen.dart';
 import '../authentication/registration_screen.dart';
-import '../authentication/splash_screen.dart';
 import '../authentication/verification_screen.dart';
 import '../main_app/main_page_screen.dart';
+import '../splash_screen.dart';
 
 final GoRouter router = GoRouter(
   initialLocation: '/',
@@ -21,7 +21,7 @@ final GoRouter router = GoRouter(
       builder: (context, state) => const RegistrationScreen(),
     ),
     GoRoute(
-      path: '/verify',
+      path: '/verification',
       builder: (context, state) => const VerificationScreen(),
     ),
     GoRoute(

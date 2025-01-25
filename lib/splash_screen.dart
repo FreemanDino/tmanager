@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:tmanager/main_app/widgets/splash_logo_text.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
@@ -29,35 +30,13 @@ class SplashScreenState extends State<SplashScreen> {
       context.go('/login');
     }
   }
+
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return const Scaffold(
       backgroundColor: Colors.black,
       body: Center(
-        child: RichText(
-          text: const TextSpan(
-            children: [
-              TextSpan(
-                text: 'T',
-                style: TextStyle(
-                  fontSize: 40,
-                  fontWeight: FontWeight.bold,
-                  color: Colors.red,
-                  fontFamily: 'Roboto',
-                ),
-              ),
-              TextSpan(
-                text: 'Manager',
-                style: TextStyle(
-                  fontSize: 40,
-                  fontWeight: FontWeight.bold,
-                  color: Colors.white,
-                  fontFamily: 'Roboto',
-                ),
-              ),
-            ],
-          ),
-        ),
+        child: SplashLogoText(),
       ),
     );
   }

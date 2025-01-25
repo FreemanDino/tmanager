@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 import 'package:tmanager/authentication/first_login_screen.dart';
-import 'package:tmanager/authentication/verification_screen.dart';
 
 import '../provider/user_provider.dart';
 
@@ -151,11 +151,7 @@ class RegistrationScreenState extends State<RegistrationScreen> {
                           email: _emailController.text,
                           password: _confirmPasswordController.text,
                         );
-
-                    Navigator.pushReplacement(
-                      context,
-                      MaterialPageRoute(builder: (context) => const VerificationScreen()),
-                    );
+                    context.go('/verification');
                   }
                 },
                 style: ElevatedButton.styleFrom(

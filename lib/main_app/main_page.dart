@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:tmanager/main_app/main_page_screen.dart';
 import 'package:tmanager/main_app/profile_page.dart';
-import 'package:tmanager/main_app/widgets/logo_text.dart';
+import 'package:tmanager/main_app/widgets/main_logo_text.dart';
 
 class MainPage extends StatefulWidget {
   const MainPage({super.key});
@@ -20,7 +20,7 @@ class MainPageState extends State<MainPage> {
         backgroundColor: Colors.black,
         elevation: 0,
         centerTitle: true,
-        title: const LogoText(),
+        title: const MainLogoText(),
       ),
       body: IndexedStack(
         index: _currentIndex,

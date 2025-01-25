@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:tmanager/main_app/main_page.dart';
+import 'package:go_router/go_router.dart';
 import 'package:tmanager/service/user_service.dart';
-
 import 'registration_screen.dart';
 
 class VerificationScreen extends StatefulWidget {
@@ -17,10 +16,7 @@ class VerificationScreenState extends State<VerificationScreen> {
     if (_codeController.text == _generatedCode) {
       await UserService.instance.verifyUser();
       if (mounted) {
-        await Navigator.pushReplacement(
-          context,
-          MaterialPageRoute(builder: (context) => const MainPage()),
-        );
+        context.go('/home');
       }
     } else {
       ScaffoldMessenger.of(context).showSnackBar(

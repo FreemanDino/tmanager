@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-class LogoText extends StatelessWidget {
-  const LogoText({
+class MainLogoText extends StatelessWidget {
+  const MainLogoText({
     super.key,
   });
 

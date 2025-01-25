@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:tmanager/main_app/widgets/logo_text.dart';
+import 'package:tmanager/main_app/widgets/main_logo_text.dart';
 
 class EditTaskPage extends StatefulWidget {
   final String title;
@@ -45,7 +45,7 @@ class EditTaskPageState extends State<EditTaskPage> {
         iconTheme: const IconThemeData(
           color: Colors.white,
         ),
-        title: const LogoText(),
+        title: const MainLogoText(),
       ),
       backgroundColor: Colors.black,
       body: Padding(
