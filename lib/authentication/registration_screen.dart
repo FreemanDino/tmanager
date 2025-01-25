@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:tmanager/authentication/first_login_screen.dart';
-import 'package:tmanager/authentication/user_state.dart';
 import 'package:tmanager/authentication/verification_screen.dart';
+
+import '../provider/user_state.dart';
 
 class RegistrationScreen extends StatefulWidget {
   const RegistrationScreen({super.key});
@@ -72,9 +73,7 @@ class RegistrationScreenState extends State<RegistrationScreen> {
                   labelStyle: TextStyle(color: Colors.white),
                   border: OutlineInputBorder(),
                   enabledBorder: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(7),
-                    borderSide: BorderSide(color: Colors.grey, width: 2.0)
-                  ),
+                      borderRadius: BorderRadius.circular(7), borderSide: BorderSide(color: Colors.grey, width: 2.0)),
                   focusedBorder: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(7),
                     borderSide: BorderSide(color: Colors.white, width: 2.0),
@@ -93,9 +92,7 @@ class RegistrationScreenState extends State<RegistrationScreen> {
                   labelStyle: TextStyle(color: Colors.white),
                   border: OutlineInputBorder(),
                   enabledBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(7),
-                      borderSide: BorderSide(color: Colors.grey, width: 2.0)
-                  ),
+                      borderRadius: BorderRadius.circular(7), borderSide: BorderSide(color: Colors.grey, width: 2.0)),
                   focusedBorder: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(7),
                     borderSide: BorderSide(color: Colors.white, width: 2.0),
@@ -114,9 +111,7 @@ class RegistrationScreenState extends State<RegistrationScreen> {
                   labelStyle: TextStyle(fontFamily: 'Roboto', color: Colors.white),
                   border: OutlineInputBorder(),
                   enabledBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(7),
-                      borderSide: BorderSide(color: Colors.grey, width: 2.0)
-                  ),
+                      borderRadius: BorderRadius.circular(7), borderSide: BorderSide(color: Colors.grey, width: 2.0)),
                   focusedBorder: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(7),
                     borderSide: BorderSide(color: Colors.white, width: 2.0),
@@ -152,11 +147,8 @@ class RegistrationScreenState extends State<RegistrationScreen> {
                       SnackBar(content: Text('Пароли не совпадают')),
                     );
                   } else {
-
-                    Provider.of<UserState>(context, listen: false)
-                        .setEmail(_emailController.text);
-                    Provider.of<UserState>(context, listen: false)
-                        .setPassword(_confirmPasswordController.text);
+                    Provider.of<UserState>(context, listen: false).setEmail(_emailController.text);
+                    Provider.of<UserState>(context, listen: false).setPassword(_confirmPasswordController.text);
 
                     Navigator.pushReplacement(
                       context,

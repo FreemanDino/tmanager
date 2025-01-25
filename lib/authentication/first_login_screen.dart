@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import 'registration_screen.dart';
+
 class FirstLoginScreen extends StatelessWidget {
   const FirstLoginScreen({super.key});
   @override
@@ -13,7 +15,7 @@ class FirstLoginScreen extends StatelessWidget {
           Expanded(
             child: Center(
               child: RichText(
-                text: TextSpan(
+                text: const TextSpan(
                   children: [
                     TextSpan(
                       text: 'T',
@@ -49,19 +51,19 @@ class FirstLoginScreen extends StatelessWidget {
                     if (context.mounted) {
                       Navigator.pushReplacement(
                         context,
-                        MaterialPageRoute(builder: (context) => RegistrationScreen()),
+                        MaterialPageRoute(builder: (context) => const RegistrationScreen()),
                       );
                     }
                   },
                   style: ElevatedButton.styleFrom(
                     backgroundColor: Colors.white,
                     foregroundColor: Colors.black,
-                    padding: EdgeInsets.symmetric(vertical: 20, horizontal: 50),
+                    padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 50),
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(7),
                     ),
                   ),
-                  child: Text(
+                  child: const Text(
                     'Войти',
                     style: TextStyle(
                       fontSize: 16,
@@ -70,10 +72,10 @@ class FirstLoginScreen extends StatelessWidget {
                     ),
                   ),
                 ),
-                SizedBox(height: 100),
-                Text(
+                const SizedBox(height: 100),
+                const Text(
                   'Нажимая «Войти», вы соглашаетесь с Пользовательским соглашением, '
-                      'Политикой конфиденциальности и условиями передачи информации',
+                  'Политикой конфиденциальности и условиями передачи информации',
                   textAlign: TextAlign.center,
                   style: TextStyle(
                     fontSize: 12,
@@ -85,7 +87,7 @@ class FirstLoginScreen extends StatelessWidget {
               ],
             ),
           ),
-          SizedBox(height: 20),
+          const SizedBox(height: 20),
         ],
       ),
     );
