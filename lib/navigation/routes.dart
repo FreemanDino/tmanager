@@ -1,8 +1,8 @@
 import 'package:go_router/go_router.dart';
-import '../authentication/first_login_screen.dart';
+import 'package:tmanager/authentication/first_login_screen.dart';
 import '../authentication/registration_screen.dart';
 import '../authentication/verification_screen.dart';
-import '../main_app/main_page_screen.dart';
+import '../main_app/main_page.dart';
 import '../splash_screen.dart';
 
 final GoRouter router = GoRouter(
@@ -26,7 +26,7 @@ final GoRouter router = GoRouter(
     ),
     GoRoute(
       path: '/home',
-      builder: (context, state) => const MainPageScreen(),
+      builder: (context, state) => const MainPage(),
     ),
   ],
 );

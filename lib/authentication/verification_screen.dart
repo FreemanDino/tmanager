@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:tmanager/service/user_service.dart';
-import 'registration_screen.dart';
 
 class VerificationScreen extends StatefulWidget {
   const VerificationScreen({super.key});
@@ -38,10 +37,7 @@ class VerificationScreenState extends State<VerificationScreen> {
               IconButton(
                 icon: const Icon(Icons.arrow_back, color: Colors.white),
                 onPressed: () {
-                  Navigator.pushReplacement(
-                    context,
-                    MaterialPageRoute(builder: (context) => const RegistrationScreen()),
-                  );
+                  context.go('/register');
                 },
               ),
               const SizedBox(height: 20),
