@@ -3,7 +3,7 @@ import 'package:provider/provider.dart';
 import 'package:tmanager/authentication/first_login_screen.dart';
 import 'package:tmanager/authentication/verification_screen.dart';
 
-import '../provider/user_state.dart';
+import '../provider/user_provider.dart';
 
 class RegistrationScreen extends StatefulWidget {
   const RegistrationScreen({super.key});
@@ -147,8 +147,10 @@ class RegistrationScreenState extends State<RegistrationScreen> {
                       SnackBar(content: Text('Пароли не совпадают')),
                     );
                   } else {
-                    Provider.of<UserState>(context, listen: false).setEmail(_emailController.text);
-                    Provider.of<UserState>(context, listen: false).setPassword(_confirmPasswordController.text);
+                    context.read<UserProvider>().saveLogin(
+                          email: _emailController.text,
+                          password: _confirmPasswordController.text,
+                        );
 
                     Navigator.pushReplacement(
                       context,

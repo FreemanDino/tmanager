@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '../provider/user_state.dart';
+import '../provider/user_provider.dart';
 
 class ProfilePage extends StatelessWidget {
   const ProfilePage({super.key});
 
   @override
   Widget build(BuildContext context) {
-    String email = Provider.of<UserState>(context).email;
-    String password = Provider.of<UserState>(context).password;
+    final provider = context.read<UserProvider>();
+    final user = context.select((UserProvider p) => p.user);
     final GlobalKey<FormState> formKey = GlobalKey<FormState>();
     final emailController = TextEditingController();
     final passwordController = TextEditingController();
@@ -17,8 +17,8 @@ class ProfilePage extends StatelessWidget {
     final RegExp emailRegex = RegExp(
       r'^[a-zA-Z0-9._%+-]{6,30}@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$',
     );
-    emailController.text = email;
-    passwordController.text = password;
+    emailController.text = user.email ?? '';
+    passwordController.text = user.password ?? '';
 
     return Scaffold(
       backgroundColor: Colors.black,
@@ -30,23 +30,23 @@ class ProfilePage extends StatelessWidget {
             CircleAvatar(
               radius: 50,
               backgroundColor: Colors.grey[800],
-              child: Icon(
+              child: const Icon(
                 Icons.person,
                 color: Colors.white,
                 size: 50,
               ),
             ),
-            SizedBox(height: 20),
+            const SizedBox(height: 20),
             Text(
-              'Электронная почта: $email',
-              style: TextStyle(color: Colors.white, fontSize: 16),
+              'Электронная почта: ${user.email ?? ''}',
+              style: const TextStyle(color: Colors.white, fontSize: 16),
             ),
-            SizedBox(height: 10),
-            Text(
+            const SizedBox(height: 10),
+            const Text(
               'Пароль: ****************',
               style: TextStyle(color: Colors.white, fontSize: 16),
             ),
-            SizedBox(height: 20),
+            const SizedBox(height: 20),
             Center(
               child: ElevatedButton(
                 onPressed: () {
@@ -55,7 +55,7 @@ class ProfilePage extends StatelessWidget {
                     builder: (BuildContext context) {
                       return AlertDialog(
                         backgroundColor: Colors.black,
-                        title: Text(
+                        title: const Text(
                           'Изменить данные',
                           style: TextStyle(color: Colors.white),
                         ),
@@ -66,20 +66,20 @@ class ProfilePage extends StatelessWidget {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               TextFormField(
-                                style: TextStyle(color: Colors.white),
+                                style: const TextStyle(color: Colors.white),
                                 cursorColor: Colors.white,
                                 controller: emailController,
                                 decoration: InputDecoration(
                                   labelText: 'Новая эл. почта',
-                                  labelStyle: TextStyle(color: Colors.white),
+                                  labelStyle: const TextStyle(color: Colors.white),
                                   enabledBorder: OutlineInputBorder(
                                       borderRadius: BorderRadius.circular(7),
-                                      borderSide: BorderSide(color: Colors.grey, width: 2.0)),
+                                      borderSide: const BorderSide(color: Colors.grey, width: 2.0)),
                                   focusedBorder: OutlineInputBorder(
                                     borderRadius: BorderRadius.circular(7),
-                                    borderSide: BorderSide(color: Colors.white, width: 2.0),
+                                    borderSide: const BorderSide(color: Colors.white, width: 2.0),
                                   ),
-                                  prefixIcon: Icon(Icons.email, color: Colors.white),
+                                  prefixIcon: const Icon(Icons.email, color: Colors.white),
                                 ),
                                 validator: (value) {
                                   if (value == null || value.isEmpty) {
@@ -91,23 +91,23 @@ class ProfilePage extends StatelessWidget {
                                   return null;
                                 },
                               ),
-                              SizedBox(height: 20),
+                              const SizedBox(height: 20),
                               TextFormField(
-                                style: TextStyle(color: Colors.white),
+                                style: const TextStyle(color: Colors.white),
                                 cursorColor: Colors.white,
                                 controller: passwordController,
                                 obscureText: true,
                                 decoration: InputDecoration(
                                   labelText: 'Новый пароль',
-                                  labelStyle: TextStyle(color: Colors.white),
+                                  labelStyle: const TextStyle(color: Colors.white),
                                   enabledBorder: OutlineInputBorder(
                                       borderRadius: BorderRadius.circular(7),
-                                      borderSide: BorderSide(color: Colors.grey, width: 2.0)),
+                                      borderSide: const BorderSide(color: Colors.grey, width: 2.0)),
                                   focusedBorder: OutlineInputBorder(
                                     borderRadius: BorderRadius.circular(7),
-                                    borderSide: BorderSide(color: Colors.white, width: 2.0),
+                                    borderSide: const BorderSide(color: Colors.white, width: 2.0),
                                   ),
-                                  prefixIcon: Icon(Icons.lock, color: Colors.white),
+                                  prefixIcon: const Icon(Icons.lock, color: Colors.white),
                                 ),
                                 validator: (value) {
                                   if (value == null || value.isEmpty) {
@@ -116,24 +116,24 @@ class ProfilePage extends StatelessWidget {
                                   return null;
                                 },
                               ),
-                              SizedBox(height: 20),
+                              const SizedBox(height: 20),
                               TextFormField(
-                                style: TextStyle(color: Colors.white),
+                                style: const TextStyle(color: Colors.white),
                                 cursorColor: Colors.white,
                                 controller: confirmPasswordController,
                                 obscureText: true,
                                 decoration: InputDecoration(
                                   labelText: 'Подтвердить пароль',
-                                  labelStyle: TextStyle(fontFamily: 'Roboto', color: Colors.white),
-                                  border: OutlineInputBorder(),
+                                  labelStyle: const TextStyle(fontFamily: 'Roboto', color: Colors.white),
+                                  border: const OutlineInputBorder(),
                                   enabledBorder: OutlineInputBorder(
                                       borderRadius: BorderRadius.circular(7),
-                                      borderSide: BorderSide(color: Colors.grey, width: 2.0)),
+                                      borderSide: const BorderSide(color: Colors.grey, width: 2.0)),
                                   focusedBorder: OutlineInputBorder(
                                     borderRadius: BorderRadius.circular(7),
-                                    borderSide: BorderSide(color: Colors.white, width: 2.0),
+                                    borderSide: const BorderSide(color: Colors.white, width: 2.0),
                                   ),
-                                  prefixIcon: Icon(Icons.lock, color: Colors.white),
+                                  prefixIcon: const Icon(Icons.lock, color: Colors.white),
                                 ),
                               ),
                             ],
@@ -152,7 +152,7 @@ class ProfilePage extends StatelessWidget {
                                 return Colors.transparent;
                               }),
                             ),
-                            child: Text(
+                            child: const Text(
                               'Отмена',
                               style: TextStyle(
                                 color: Colors.white,
@@ -167,29 +167,31 @@ class ProfilePage extends StatelessWidget {
                                   passwordController.text.isEmpty ||
                                   confirmPasswordController.text.isEmpty) {
                                 ScaffoldMessenger.of(context).showSnackBar(
-                                  SnackBar(content: Text('Пожалуйста, заполните все поля')),
+                                  const SnackBar(content: Text('Пожалуйста, заполните все поля')),
                                 );
                                 return;
                               }
                               if (!emailRegex.hasMatch(emailController.text)) {
                                 ScaffoldMessenger.of(context).showSnackBar(
-                                  SnackBar(content: Text('Неверный формат электронной почты')),
+                                  const SnackBar(content: Text('Неверный формат электронной почты')),
                                 );
                                 return;
                               }
                               if (passwordController.text.length < 16) {
                                 ScaffoldMessenger.of(context).showSnackBar(
-                                  SnackBar(content: Text('Пароль должен содержать минимум 16 символов')),
+                                  const SnackBar(content: Text('Пароль должен содержать минимум 16 символов')),
                                 );
                                 return;
                               }
                               if (passwordController.text != confirmPasswordController.text) {
                                 ScaffoldMessenger.of(context).showSnackBar(
-                                  SnackBar(content: Text('Пароли не совпадают')),
+                                  const SnackBar(content: Text('Пароли не совпадают')),
                                 );
                               } else if (formKey.currentState?.validate() ?? false) {
-                                Provider.of<UserState>(context, listen: false)
-                                    .updateUserData(emailController.text, passwordController.text);
+                                context.read<UserProvider>().saveLogin(
+                                      email: emailController.text,
+                                      password: passwordController.text,
+                                    );
                                 Navigator.pop(context);
                               }
                             },
@@ -201,7 +203,7 @@ class ProfilePage extends StatelessWidget {
                                 return Colors.transparent;
                               }),
                             ),
-                            child: Text(
+                            child: const Text(
                               'Сохранить',
                               style: TextStyle(
                                 color: Colors.white, // Белый цвет текста
@@ -218,12 +220,12 @@ class ProfilePage extends StatelessWidget {
                 style: ElevatedButton.styleFrom(
                   backgroundColor: Colors.white,
                   foregroundColor: Colors.black,
-                  padding: EdgeInsets.symmetric(vertical: 20, horizontal: 50),
+                  padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 50),
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(7),
                   ),
                 ),
-                child: Text(
+                child: const Text(
                   'Изменить данные',
                   style: TextStyle(
                     fontSize: 16,
