@@ -23,11 +23,11 @@ class MainPageScreenState extends State<MainPageScreen> {
   }
 
   Future<void> _loadTasks() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    List<String> taskStrings = prefs.getStringList('tasks') ?? [];
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    final List<String> taskStrings = prefs.getStringList('tasks') ?? [];
     setState(() {
       tasks = taskStrings.map((taskString) {
-        var parts = taskString.split('|');
+        final parts = taskString.split('|');
         return {'title': parts[0], 'description': parts[1]};
       }).toList();
       filteredTasks = tasks;
@@ -43,8 +43,8 @@ class MainPageScreenState extends State<MainPageScreen> {
   }
 
   Future<void> _saveTasks() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    List<String> taskStrings = tasks.map((task) {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    final List<String> taskStrings = tasks.map((task) {
       return '${task['title']}|${task['description']}';
     }).toList();
     await prefs.setStringList('tasks', taskStrings);
@@ -81,8 +81,8 @@ class MainPageScreenState extends State<MainPageScreen> {
     showDialog(
       context: context,
       builder: (context) => AlertDialog(
-        backgroundColor: Color(0xFF141414),
-        title: Text(
+        backgroundColor: const Color(0xFF141414),
+        title: const Text(
           'Добавить задачу',
           style: TextStyle(
             color: Colors.white,
@@ -95,7 +95,7 @@ class MainPageScreenState extends State<MainPageScreen> {
             title = value;
             description = value;
           },
-          decoration: InputDecoration(
+          decoration: const InputDecoration(
             labelText: 'Введите название задачи',
             labelStyle: TextStyle(
               color: Colors.grey,
@@ -109,7 +109,7 @@ class MainPageScreenState extends State<MainPageScreen> {
               borderSide: BorderSide(color: Colors.white),
             ),
           ),
-          style: TextStyle(
+          style: const TextStyle(
             color: Colors.white,
             fontFamily: 'Roboto',
           ),
@@ -131,7 +131,7 @@ class MainPageScreenState extends State<MainPageScreen> {
                 },
               ),
             ),
-            child: Text(
+            child: const Text(
               'Отмена',
               style: TextStyle(
                 color: Colors.white,
@@ -155,7 +155,7 @@ class MainPageScreenState extends State<MainPageScreen> {
                 },
               ),
             ),
-            child: Text(
+            child: const Text(
               'Добавить',
               style: TextStyle(
                 color: Colors.white,
@@ -178,24 +178,24 @@ class MainPageScreenState extends State<MainPageScreen> {
           mainAxisSize: MainAxisSize.min,
           children: [
             ListTile(
-              leading: Icon(Icons.edit, color: Colors.white),
-              title: Text('Переименовать', style: TextStyle(color: Colors.white)),
+              leading: const Icon(Icons.edit, color: Colors.white),
+              title: const Text('Переименовать', style: TextStyle(color: Colors.white)),
               onTap: () {
                 Navigator.pop(context);
                 _showEditTaskDialog(index);
               },
             ),
             ListTile(
-              leading: Icon(Icons.delete, color: Colors.white),
-              title: Text('Удалить', style: TextStyle(color: Colors.white)),
+              leading: const Icon(Icons.delete, color: Colors.white),
+              title: const Text('Удалить', style: TextStyle(color: Colors.white)),
               onTap: () {
                 Navigator.pop(context);
                 _deleteTask(index);
               },
             ),
             ListTile(
-                leading: Icon(Icons.open_in_new, color: Colors.white),
-                title: Text('Открыть', style: TextStyle(color: Colors.white)),
+                leading: const Icon(Icons.open_in_new, color: Colors.white),
+                title: const Text('Открыть', style: TextStyle(color: Colors.white)),
                 onTap: () {
                   Navigator.push(
                     context,
@@ -209,7 +209,7 @@ class MainPageScreenState extends State<MainPageScreen> {
                       ),
                     ),
                   );
-                })
+                },),
           ],
         ),
       ),
@@ -218,15 +218,15 @@ class MainPageScreenState extends State<MainPageScreen> {
 
   void _showEditTaskDialog(int index) {
     String updatedTitle = tasks[index]['title']!;
-    String updatedDescription = tasks[index]['description']!;
+    final String updatedDescription = tasks[index]['description']!;
 
-    TextEditingController titleController = TextEditingController(text: updatedTitle);
+    final TextEditingController titleController = TextEditingController(text: updatedTitle);
 
     showDialog(
       context: context,
       builder: (context) => AlertDialog(
-        backgroundColor: Color(0xFF141414),
-        title: Text(
+        backgroundColor: const Color(0xFF141414),
+        title: const Text(
           'Переименовать задачу',
           style: TextStyle(
             color: Colors.white,
@@ -241,7 +241,7 @@ class MainPageScreenState extends State<MainPageScreen> {
               onChanged: (value) {
                 updatedTitle = value;
               },
-              decoration: InputDecoration(
+              decoration: const InputDecoration(
                 labelText: 'Название задачи',
                 labelStyle: TextStyle(
                   color: Colors.grey,
@@ -255,7 +255,7 @@ class MainPageScreenState extends State<MainPageScreen> {
                   borderSide: BorderSide(color: Colors.white),
                 ),
               ),
-              style: TextStyle(
+              style: const TextStyle(
                 color: Colors.white,
                 fontFamily: 'Roboto',
                 fontWeight: FontWeight.normal,
@@ -277,7 +277,7 @@ class MainPageScreenState extends State<MainPageScreen> {
                 return Colors.transparent;
               }),
             ),
-            child: Text(
+            child: const Text(
               'Отмена',
               style: TextStyle(
                 color: Colors.white, // Белый цвет текста
@@ -299,7 +299,7 @@ class MainPageScreenState extends State<MainPageScreen> {
                 return Colors.transparent;
               }),
             ),
-            child: Text(
+            child: const Text(
               'Сохранить',
               style: TextStyle(
                 color: Colors.white,
@@ -323,29 +323,29 @@ class MainPageScreenState extends State<MainPageScreen> {
           children: <Widget>[
             TextField(
               controller: searchController,
-              style: TextStyle(color: Colors.white),
+              style: const TextStyle(color: Colors.white),
               cursorColor: Colors.white,
               decoration: InputDecoration(
                 labelText: 'Поиск задачи',
-                labelStyle: TextStyle(color: Colors.white),
-                prefixIcon: Icon(Icons.search, color: Colors.white),
-                border: OutlineInputBorder(),
+                labelStyle: const TextStyle(color: Colors.white),
+                prefixIcon: const Icon(Icons.search, color: Colors.white),
+                border: const OutlineInputBorder(),
                 enabledBorder: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(7),
-                  borderSide: BorderSide(color: Colors.grey, width: 2.0),
+                  borderSide: const BorderSide(color: Colors.grey, width: 2.0),
                 ),
                 focusedBorder: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(7),
-                  borderSide: BorderSide(color: Colors.white, width: 2.0),
+                  borderSide: const BorderSide(color: Colors.white, width: 2.0),
                 ),
               ),
             ),
-            SizedBox(height: 20),
+            const SizedBox(height: 20),
             Row(
               mainAxisAlignment: MainAxisAlignment.end,
               children: [
                 IconButton(
-                  icon: Icon(Icons.view_module, color: Colors.white),
+                  icon: const Icon(Icons.view_module, color: Colors.white),
                   onPressed: () {
                     setState(() {
                       isGridView = true;
@@ -353,7 +353,7 @@ class MainPageScreenState extends State<MainPageScreen> {
                   },
                 ),
                 IconButton(
-                  icon: Icon(Icons.view_list, color: Colors.white),
+                  icon: const Icon(Icons.view_list, color: Colors.white),
                   onPressed: () {
                     setState(() {
                       isGridView = false;
@@ -365,7 +365,7 @@ class MainPageScreenState extends State<MainPageScreen> {
             Expanded(
               child: isGridView
                   ? GridView.builder(
-                      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                         crossAxisCount: 2,
                         crossAxisSpacing: 10,
                         mainAxisSpacing: 10,
@@ -379,8 +379,8 @@ class MainPageScreenState extends State<MainPageScreen> {
                             child: Center(
                                 child: Text(
                               filteredTasks[index]['title'] ?? 'Без названия',
-                              style: TextStyle(color: Colors.white),
-                            )),
+                              style: const TextStyle(color: Colors.white),
+                            ),),
                           ),
                         );
                       },
@@ -393,7 +393,7 @@ class MainPageScreenState extends State<MainPageScreen> {
                           child: ListTile(
                             title: Text(
                               filteredTasks[index]['title'] ?? 'Без названия',
-                              style: TextStyle(color: Colors.white),
+                              style: const TextStyle(color: Colors.white),
                             ),
                           ),
                         );
@@ -406,7 +406,7 @@ class MainPageScreenState extends State<MainPageScreen> {
       floatingActionButton: FloatingActionButton(
         backgroundColor: Colors.white,
         onPressed: _showAddTaskDialog,
-        child: Icon(Icons.add, color: Colors.black),
+        child: const Icon(Icons.add, color: Colors.black),
       ),
     );
   }

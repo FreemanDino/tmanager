@@ -17,14 +17,14 @@ class VerificationScreenState extends State<VerificationScreen> {
     if (_codeController.text == _generatedCode) {
       await UserService.instance.verifyUser();
       if (mounted) {
-        Navigator.pushReplacement(
+        await Navigator.pushReplacement(
           context,
-          MaterialPageRoute(builder: (context) => MainPage()),
+          MaterialPageRoute(builder: (context) => const MainPage()),
         );
       }
     } else {
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('Неверный код')),
+        const SnackBar(content: Text('Неверный код')),
       );
     }
   }
@@ -40,17 +40,17 @@ class VerificationScreenState extends State<VerificationScreen> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               IconButton(
-                icon: Icon(Icons.arrow_back, color: Colors.white),
+                icon: const Icon(Icons.arrow_back, color: Colors.white),
                 onPressed: () {
                   Navigator.pushReplacement(
                     context,
-                    MaterialPageRoute(builder: (context) => RegistrationScreen()),
+                    MaterialPageRoute(builder: (context) => const RegistrationScreen()),
                   );
                 },
               ),
-              SizedBox(height: 20),
+              const SizedBox(height: 20),
               RichText(
-                text: TextSpan(
+                text: const TextSpan(
                   children: [
                     TextSpan(
                       text: 'T',
@@ -73,40 +73,40 @@ class VerificationScreenState extends State<VerificationScreen> {
                   ],
                 ),
               ),
-              SizedBox(height: 60),
+              const SizedBox(height: 60),
               TextField(
-                style: TextStyle(color: Colors.white),
+                style: const TextStyle(color: Colors.white),
                 cursorColor: Colors.white,
                 controller: _codeController,
                 keyboardType: TextInputType.number,
                 maxLength: 6,
                 decoration: InputDecoration(
                   labelText: 'Введите код из письма',
-                  labelStyle: TextStyle(color: Colors.white),
-                  border: OutlineInputBorder(),
+                  labelStyle: const TextStyle(color: Colors.white),
+                  border: const OutlineInputBorder(),
                   enabledBorder: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(7),
-                    borderSide: BorderSide(color: Colors.grey, width: 2.0),
+                    borderSide: const BorderSide(color: Colors.grey, width: 2.0),
                   ),
                   focusedBorder: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(7),
-                    borderSide: BorderSide(color: Colors.white, width: 2.0),
+                    borderSide: const BorderSide(color: Colors.white, width: 2.0),
                   ),
-                  prefixIcon: Icon(Icons.email, color: Colors.white),
+                  prefixIcon: const Icon(Icons.email, color: Colors.white),
                 ),
               ),
-              SizedBox(height: 40),
+              const SizedBox(height: 40),
               ElevatedButton(
                 onPressed: _verifyCode,
                 style: ElevatedButton.styleFrom(
                   backgroundColor: Colors.white,
                   foregroundColor: Colors.black,
-                  padding: EdgeInsets.symmetric(vertical: 20, horizontal: 50),
+                  padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 50),
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(7),
                   ),
                 ),
-                child: Text(
+                child: const Text(
                   'Подтвердить',
                   style: TextStyle(
                     fontSize: 16,

@@ -16,21 +16,21 @@ class SplashScreenState extends State<SplashScreen> {
     _navigateToNextScreen();
   }
   Future<void> _navigateToNextScreen() async {
-    await Future.delayed(Duration(seconds: 1));
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    bool isVerified = prefs.getBool('isVerified') ?? false;
+    await Future.delayed(const Duration(seconds: 1));
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    final bool isVerified = prefs.getBool('isVerified') ?? false;
 
     if (!mounted) return;
 
     if (isVerified) {
-      Navigator.pushReplacement(
+      await Navigator.pushReplacement(
         context,
-        MaterialPageRoute(builder: (context) => MainPage()),
+        MaterialPageRoute(builder: (context) => const MainPage()),
       );
     } else {
-      Navigator.pushReplacement(
+      await Navigator.pushReplacement(
         context,
-        MaterialPageRoute(builder: (context) => FirstLoginScreen()),
+        MaterialPageRoute(builder: (context) => const FirstLoginScreen()),
       );
     }
   }
@@ -40,7 +40,7 @@ class SplashScreenState extends State<SplashScreen> {
       backgroundColor: Colors.black,
       body: Center(
         child: RichText(
-          text: TextSpan(
+          text: const TextSpan(
             children: [
               TextSpan(
                 text: 'T',

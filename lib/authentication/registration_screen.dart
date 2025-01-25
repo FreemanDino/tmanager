@@ -29,17 +29,17 @@ class RegistrationScreenState extends State<RegistrationScreen> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               IconButton(
-                icon: Icon(Icons.arrow_back, color: Colors.white),
+                icon: const Icon(Icons.arrow_back, color: Colors.white),
                 onPressed: () {
                   Navigator.pushReplacement(
                     context,
-                    MaterialPageRoute(builder: (context) => FirstLoginScreen()),
+                    MaterialPageRoute(builder: (context) => const FirstLoginScreen()),
                   );
                 },
               ),
-              SizedBox(height: 20),
+              const SizedBox(height: 20),
               RichText(
-                text: TextSpan(
+                text: const TextSpan(
                   children: [
                     TextSpan(
                       text: 'T',
@@ -62,89 +62,89 @@ class RegistrationScreenState extends State<RegistrationScreen> {
                   ],
                 ),
               ),
-              SizedBox(height: 60),
+              const SizedBox(height: 60),
               TextField(
-                style: TextStyle(color: Colors.white),
+                style: const TextStyle(color: Colors.white),
                 cursorColor: Colors.white,
                 controller: _emailController,
                 keyboardType: TextInputType.emailAddress,
                 decoration: InputDecoration(
                   labelText: 'Электронная почта',
-                  labelStyle: TextStyle(color: Colors.white),
-                  border: OutlineInputBorder(),
+                  labelStyle: const TextStyle(color: Colors.white),
+                  border: const OutlineInputBorder(),
                   enabledBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(7), borderSide: BorderSide(color: Colors.grey, width: 2.0)),
+                      borderRadius: BorderRadius.circular(7), borderSide: const BorderSide(color: Colors.grey, width: 2.0),),
                   focusedBorder: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(7),
-                    borderSide: BorderSide(color: Colors.white, width: 2.0),
+                    borderSide: const BorderSide(color: Colors.white, width: 2.0),
                   ),
-                  prefixIcon: Icon(Icons.email, color: Colors.white),
+                  prefixIcon: const Icon(Icons.email, color: Colors.white),
                 ),
               ),
-              SizedBox(height: 20),
+              const SizedBox(height: 20),
               TextField(
-                style: TextStyle(color: Colors.white),
+                style: const TextStyle(color: Colors.white),
                 cursorColor: Colors.white,
                 controller: _passwordController,
                 obscureText: true,
                 decoration: InputDecoration(
                   labelText: 'Пароль',
-                  labelStyle: TextStyle(color: Colors.white),
-                  border: OutlineInputBorder(),
+                  labelStyle: const TextStyle(color: Colors.white),
+                  border: const OutlineInputBorder(),
                   enabledBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(7), borderSide: BorderSide(color: Colors.grey, width: 2.0)),
+                      borderRadius: BorderRadius.circular(7), borderSide: const BorderSide(color: Colors.grey, width: 2.0),),
                   focusedBorder: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(7),
-                    borderSide: BorderSide(color: Colors.white, width: 2.0),
+                    borderSide: const BorderSide(color: Colors.white, width: 2.0),
                   ),
-                  prefixIcon: Icon(Icons.lock, color: Colors.white),
+                  prefixIcon: const Icon(Icons.lock, color: Colors.white),
                 ),
               ),
-              SizedBox(height: 20),
+              const SizedBox(height: 20),
               TextField(
-                style: TextStyle(color: Colors.white),
+                style: const TextStyle(color: Colors.white),
                 cursorColor: Colors.white,
                 controller: _confirmPasswordController,
                 obscureText: true,
                 decoration: InputDecoration(
                   labelText: 'Подтверждение пароля',
-                  labelStyle: TextStyle(fontFamily: 'Roboto', color: Colors.white),
-                  border: OutlineInputBorder(),
+                  labelStyle: const TextStyle(fontFamily: 'Roboto', color: Colors.white),
+                  border: const OutlineInputBorder(),
                   enabledBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(7), borderSide: BorderSide(color: Colors.grey, width: 2.0)),
+                      borderRadius: BorderRadius.circular(7), borderSide: const BorderSide(color: Colors.grey, width: 2.0),),
                   focusedBorder: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(7),
-                    borderSide: BorderSide(color: Colors.white, width: 2.0),
+                    borderSide: const BorderSide(color: Colors.white, width: 2.0),
                   ),
-                  prefixIcon: Icon(Icons.lock, color: Colors.white),
+                  prefixIcon: const Icon(Icons.lock, color: Colors.white),
                 ),
               ),
-              SizedBox(height: 40),
+              const SizedBox(height: 40),
               ElevatedButton(
                 onPressed: () {
                   if (_emailController.text.isEmpty ||
                       _passwordController.text.isEmpty ||
                       _confirmPasswordController.text.isEmpty) {
                     ScaffoldMessenger.of(context).showSnackBar(
-                      SnackBar(content: Text('Пожалуйста, заполните все поля')),
+                      const SnackBar(content: Text('Пожалуйста, заполните все поля')),
                     );
                     return;
                   }
                   if (!_emailRegex.hasMatch(_emailController.text)) {
                     ScaffoldMessenger.of(context).showSnackBar(
-                      SnackBar(content: Text('Неверный формат электронной почты')),
+                      const SnackBar(content: Text('Неверный формат электронной почты')),
                     );
                     return;
                   }
-                  if (_passwordController.text.length < 16) {
+                  if (_passwordController.text.length < 6) {
                     ScaffoldMessenger.of(context).showSnackBar(
-                      SnackBar(content: Text('Пароль должен содержать минимум 16 символов')),
+                      const SnackBar(content: Text('Пароль должен содержать минимум 16 символов')),
                     );
                     return;
                   }
                   if (_passwordController.text != _confirmPasswordController.text) {
                     ScaffoldMessenger.of(context).showSnackBar(
-                      SnackBar(content: Text('Пароли не совпадают')),
+                      const SnackBar(content: Text('Пароли не совпадают')),
                     );
                   } else {
                     context.read<UserProvider>().saveLogin(
@@ -154,19 +154,19 @@ class RegistrationScreenState extends State<RegistrationScreen> {
 
                     Navigator.pushReplacement(
                       context,
-                      MaterialPageRoute(builder: (context) => VerificationScreen()),
+                      MaterialPageRoute(builder: (context) => const VerificationScreen()),
                     );
                   }
                 },
                 style: ElevatedButton.styleFrom(
                   backgroundColor: Colors.white,
                   foregroundColor: Colors.black,
-                  padding: EdgeInsets.symmetric(vertical: 20, horizontal: 50),
+                  padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 50),
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(7),
                   ),
                 ),
-                child: Text(
+                child: const Text(
                   'Продолжить',
                   style: TextStyle(
                     fontSize: 16,

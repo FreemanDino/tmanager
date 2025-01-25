@@ -41,11 +41,6 @@ class ProfilePage extends StatelessWidget {
               'Электронная почта: ${user.email ?? ''}',
               style: const TextStyle(color: Colors.white, fontSize: 16),
             ),
-            const SizedBox(height: 10),
-            const Text(
-              'Пароль: ****************',
-              style: TextStyle(color: Colors.white, fontSize: 16),
-            ),
             const SizedBox(height: 20),
             Center(
               child: ElevatedButton(
@@ -74,7 +69,9 @@ class ProfilePage extends StatelessWidget {
                                   labelStyle: const TextStyle(color: Colors.white),
                                   enabledBorder: OutlineInputBorder(
                                       borderRadius: BorderRadius.circular(7),
-                                      borderSide: const BorderSide(color: Colors.grey, width: 2.0)),
+                                      borderSide: const BorderSide(
+                                        color: Colors.grey, width: 2.0,),
+                                      ),
                                   focusedBorder: OutlineInputBorder(
                                     borderRadius: BorderRadius.circular(7),
                                     borderSide: const BorderSide(color: Colors.white, width: 2.0),
@@ -102,7 +99,7 @@ class ProfilePage extends StatelessWidget {
                                   labelStyle: const TextStyle(color: Colors.white),
                                   enabledBorder: OutlineInputBorder(
                                       borderRadius: BorderRadius.circular(7),
-                                      borderSide: const BorderSide(color: Colors.grey, width: 2.0)),
+                                      borderSide: const BorderSide(color: Colors.grey, width: 2.0),),
                                   focusedBorder: OutlineInputBorder(
                                     borderRadius: BorderRadius.circular(7),
                                     borderSide: const BorderSide(color: Colors.white, width: 2.0),
@@ -128,7 +125,7 @@ class ProfilePage extends StatelessWidget {
                                   border: const OutlineInputBorder(),
                                   enabledBorder: OutlineInputBorder(
                                       borderRadius: BorderRadius.circular(7),
-                                      borderSide: const BorderSide(color: Colors.grey, width: 2.0)),
+                                      borderSide: const BorderSide(color: Colors.grey, width: 2.0),),
                                   focusedBorder: OutlineInputBorder(
                                     borderRadius: BorderRadius.circular(7),
                                     borderSide: const BorderSide(color: Colors.white, width: 2.0),
