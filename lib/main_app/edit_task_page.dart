@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:tmanager/main_app/widget/logo_text.dart';
+import 'package:tmanager/main_app/widgets/logo_text.dart';
 
 class EditTaskPage extends StatefulWidget {
   final String title;

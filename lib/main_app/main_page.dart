@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:tmanager/main_app/main_page_screen.dart';
 import 'package:tmanager/main_app/profile_page.dart';
-import 'package:tmanager/main_app/widget/logo_text.dart';
+import 'package:tmanager/main_app/widgets/logo_text.dart';
 
 class MainPage extends StatefulWidget {
   const MainPage({super.key});
@@ -28,7 +28,7 @@ class MainPageState extends State<MainPage> {
           MainPageScreen(),
           ProfilePage(),
           Placeholder(),
-        ], // Список всех страниц
+        ],
       ),
       bottomNavigationBar: BottomNavigationBar(
         backgroundColor: Colors.black,

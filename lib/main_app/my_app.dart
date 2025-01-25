@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:tmanager/authentication/splash_screen.dart';
+import 'package:tmanager/navigation/routes.dart';
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
+
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return MaterialApp.router(
+      title: 'TManager',
       theme: ThemeData(
         textSelectionTheme: const TextSelectionThemeData(
           cursorColor: Colors.white,
@@ -13,8 +15,8 @@ class MyApp extends StatelessWidget {
           selectionHandleColor: Colors.white,
         ),
       ),
+      routerConfig: router,
       debugShowCheckedModeBanner: false,
-      home: const SplashScreen(),
     );
   }
 }
