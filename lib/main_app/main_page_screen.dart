@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import 'edit_task_page_state.dart';
+
 class MainPageScreen extends StatefulWidget {
   const MainPageScreen({super.key});
   @override
@@ -41,30 +43,30 @@ class MainPageScreenState extends State<MainPageScreen> {
   }
 
   Future<void> _saveTasks() async {
-  SharedPreferences prefs = await SharedPreferences.getInstance();
-  List<String> taskStrings = tasks.map((task) {
-    return '${task['title']}|${task['description']}';
-  }).toList();
-  await prefs.setStringList('tasks', taskStrings);
-}
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    List<String> taskStrings = tasks.map((task) {
+      return '${task['title']}|${task['description']}';
+    }).toList();
+    await prefs.setStringList('tasks', taskStrings);
+  }
 
   Future<void> _addTask(String title, String description) async {
-  if (title.isNotEmpty) {
-    setState(() {
-      tasks.add({'title': title, 'description': description});
-    });
-    await _saveTasks();
+    if (title.isNotEmpty) {
+      setState(() {
+        tasks.add({'title': title, 'description': description});
+      });
+      await _saveTasks();
+    }
   }
-}
 
   Future<void> _editTask(int index, String newTitle, String newDescription) async {
-  if (newTitle.isNotEmpty) {
-    setState(() {
-      tasks[index] = {'title': newTitle, 'description': newDescription};
-    });
-    await _saveTasks();
+    if (newTitle.isNotEmpty) {
+      setState(() {
+        tasks[index] = {'title': newTitle, 'description': newDescription};
+      });
+      await _saveTasks();
+    }
   }
-}
 
   Future<void> _deleteTask(int index) async {
     setState(() {
@@ -121,9 +123,8 @@ class MainPageScreenState extends State<MainPageScreen> {
             },
             style: ButtonStyle(
               overlayColor: WidgetStateProperty.resolveWith<Color>(
-                    (states) {
-                  if (states.contains(WidgetState.hovered) ||
-                      states.contains(WidgetState.pressed)) {
+                (states) {
+                  if (states.contains(WidgetState.hovered) || states.contains(WidgetState.pressed)) {
                     return Colors.grey;
                   }
                   return Colors.transparent;
@@ -146,9 +147,8 @@ class MainPageScreenState extends State<MainPageScreen> {
             },
             style: ButtonStyle(
               overlayColor: WidgetStateProperty.resolveWith<Color>(
-                    (states) {
-                  if (states.contains(WidgetState.hovered) ||
-                      states.contains(WidgetState.pressed)) {
+                (states) {
+                  if (states.contains(WidgetState.hovered) || states.contains(WidgetState.pressed)) {
                     return Colors.grey;
                   }
                   return Colors.transparent;
@@ -194,23 +194,22 @@ class MainPageScreenState extends State<MainPageScreen> {
               },
             ),
             ListTile(
-              leading: Icon(Icons.open_in_new, color: Colors.white),
-              title: Text('Открыть', style: TextStyle(color: Colors.white)),
-              onTap: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => EditTaskPage(
-                    title: tasks[index]['title'] ?? '',
-                    description: tasks[index]['description'] ?? '',
-                    onSave: (updatedTitle, updatedDescription) {
-                      _editTask(index, updatedTitle, updatedDescription);
-                      },
+                leading: Icon(Icons.open_in_new, color: Colors.white),
+                title: Text('Открыть', style: TextStyle(color: Colors.white)),
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => EditTaskPage(
+                        title: tasks[index]['title'] ?? '',
+                        description: tasks[index]['description'] ?? '',
+                        onSave: (updatedTitle, updatedDescription) {
+                          _editTask(index, updatedTitle, updatedDescription);
+                        },
+                      ),
                     ),
-                  ),
-                );
-              }
-            )
+                  );
+                })
           ],
         ),
       ),
@@ -218,102 +217,102 @@ class MainPageScreenState extends State<MainPageScreen> {
   }
 
   void _showEditTaskDialog(int index) {
-  String updatedTitle = tasks[index]['title']!;
-  String updatedDescription = tasks[index]['description']!;
+    String updatedTitle = tasks[index]['title']!;
+    String updatedDescription = tasks[index]['description']!;
 
-  TextEditingController titleController = TextEditingController(text: updatedTitle);
+    TextEditingController titleController = TextEditingController(text: updatedTitle);
 
-  showDialog(
-    context: context,
-    builder: (context) => AlertDialog(
-      backgroundColor: Color(0xFF141414),
-      title: Text(
-        'Переименовать задачу',
-        style: TextStyle(
-          color: Colors.white,
-          fontFamily: 'Roboto',
-          fontWeight: FontWeight.normal,
+    showDialog(
+      context: context,
+      builder: (context) => AlertDialog(
+        backgroundColor: Color(0xFF141414),
+        title: Text(
+          'Переименовать задачу',
+          style: TextStyle(
+            color: Colors.white,
+            fontFamily: 'Roboto',
+            fontWeight: FontWeight.normal,
+          ),
         ),
-      ),
-      content: Column(
-        children: [
-          TextField(
-            controller: titleController,
-            onChanged: (value) {
-              updatedTitle = value;
-            },
-            decoration: InputDecoration(
-              labelText: 'Название задачи',
-              labelStyle: TextStyle(
-                color: Colors.grey,
+        content: Column(
+          children: [
+            TextField(
+              controller: titleController,
+              onChanged: (value) {
+                updatedTitle = value;
+              },
+              decoration: InputDecoration(
+                labelText: 'Название задачи',
+                labelStyle: TextStyle(
+                  color: Colors.grey,
+                  fontFamily: 'Roboto',
+                  fontWeight: FontWeight.normal,
+                ),
+                enabledBorder: UnderlineInputBorder(
+                  borderSide: BorderSide(color: Colors.white),
+                ),
+                focusedBorder: UnderlineInputBorder(
+                  borderSide: BorderSide(color: Colors.white),
+                ),
+              ),
+              style: TextStyle(
+                color: Colors.white,
                 fontFamily: 'Roboto',
                 fontWeight: FontWeight.normal,
               ),
-              enabledBorder: UnderlineInputBorder(
-                borderSide: BorderSide(color: Colors.white),
-              ),
-              focusedBorder: UnderlineInputBorder(
-                borderSide: BorderSide(color: Colors.white),
+              cursorColor: Colors.white,
+            ),
+          ],
+        ),
+        actions: [
+          TextButton(
+            onPressed: () {
+              Navigator.pop(context);
+            },
+            style: ButtonStyle(
+              overlayColor: WidgetStateProperty.resolveWith<Color>((states) {
+                if (states.contains(WidgetState.hovered) || states.contains(WidgetState.pressed)) {
+                  return Colors.grey;
+                }
+                return Colors.transparent;
+              }),
+            ),
+            child: Text(
+              'Отмена',
+              style: TextStyle(
+                color: Colors.white, // Белый цвет текста
+                fontFamily: 'Roboto',
+                fontWeight: FontWeight.normal,
               ),
             ),
-            style: TextStyle(
-              color: Colors.white,
-              fontFamily: 'Roboto',
-              fontWeight: FontWeight.normal,
+          ),
+          TextButton(
+            onPressed: () {
+              _editTask(index, updatedTitle, updatedDescription);
+              Navigator.pop(context);
+            },
+            style: ButtonStyle(
+              overlayColor: WidgetStateProperty.resolveWith<Color>((states) {
+                if (states.contains(WidgetState.hovered) || states.contains(WidgetState.pressed)) {
+                  return Colors.grey;
+                }
+                return Colors.transparent;
+              }),
             ),
-            cursorColor: Colors.white,
+            child: Text(
+              'Сохранить',
+              style: TextStyle(
+                color: Colors.white,
+                fontFamily: 'Roboto',
+                fontWeight: FontWeight.normal,
+              ),
+            ),
           ),
         ],
       ),
-      actions: [
-        TextButton(
-          onPressed: () {
-            Navigator.pop(context);
-          },
-          style: ButtonStyle(
-            overlayColor: WidgetStateProperty.resolveWith<Color>((states) {
-              if (states.contains(WidgetState.hovered) || states.contains(WidgetState.pressed)) {
-                return Colors.grey;
-              }
-              return Colors.transparent;
-            }),
-          ),
-          child: Text(
-            'Отмена',
-            style: TextStyle(
-              color: Colors.white, // Белый цвет текста
-              fontFamily: 'Roboto',
-              fontWeight: FontWeight.normal,
-            ),
-          ),
-        ),
-        TextButton(
-          onPressed: () {
-            _editTask(index, updatedTitle, updatedDescription);
-            Navigator.pop(context);
-          },
-          style: ButtonStyle(
-            overlayColor: WidgetStateProperty.resolveWith<Color>((states) {
-              if (states.contains(WidgetState.hovered) || states.contains(WidgetState.pressed)) {
-                return Colors.grey;
-              }
-              return Colors.transparent;
-            }),
-          ),
-          child: Text(
-            'Сохранить',
-            style: TextStyle(
-              color: Colors.white,
-              fontFamily: 'Roboto',
-              fontWeight: FontWeight.normal,
-            ),
-          ),
-        ),
-      ],
-    ),
-  );
+    );
   }
-  
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -366,40 +365,40 @@ class MainPageScreenState extends State<MainPageScreen> {
             Expanded(
               child: isGridView
                   ? GridView.builder(
-                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: 2,
-                  crossAxisSpacing: 10,
-                  mainAxisSpacing: 10,
-                ),
-                itemCount: filteredTasks.length,
-                itemBuilder: (context, index) {
-                  return GestureDetector(
-                    onTap: () => _showTaskOptions(index),
-                    child: Card(
-                      color: Colors.grey[800],
-                      child: Center(
-                          child: Text(
-                            filteredTasks[index]['title'] ?? 'Без названия',
-                            style: TextStyle(color: Colors.white),
-                          )),
-                    ),
-                  );
-                },
-              )
-              : ListView.builder(
-                itemCount: filteredTasks.length,
-                itemBuilder: (context, index) {
-                  return GestureDetector(
-                    onTap: () => _showTaskOptions(index),
-                    child: ListTile(
-                      title: Text(
-                        filteredTasks[index]['title'] ?? 'Без названия',
-                        style: TextStyle(color: Colors.white),
+                      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                        crossAxisCount: 2,
+                        crossAxisSpacing: 10,
+                        mainAxisSpacing: 10,
                       ),
+                      itemCount: filteredTasks.length,
+                      itemBuilder: (context, index) {
+                        return GestureDetector(
+                          onTap: () => _showTaskOptions(index),
+                          child: Card(
+                            color: Colors.grey[800],
+                            child: Center(
+                                child: Text(
+                              filteredTasks[index]['title'] ?? 'Без названия',
+                              style: TextStyle(color: Colors.white),
+                            )),
+                          ),
+                        );
+                      },
+                    )
+                  : ListView.builder(
+                      itemCount: filteredTasks.length,
+                      itemBuilder: (context, index) {
+                        return GestureDetector(
+                          onTap: () => _showTaskOptions(index),
+                          child: ListTile(
+                            title: Text(
+                              filteredTasks[index]['title'] ?? 'Без названия',
+                              style: TextStyle(color: Colors.white),
+                            ),
+                          ),
+                        );
+                      },
                     ),
-                  );
-                },
-              ),
             ),
           ],
         ),

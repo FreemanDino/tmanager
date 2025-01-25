@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:tmanager/user_state.dart';
+
+import '../provider/user_state.dart';
 
 class ProfilePage extends StatelessWidget {
   const ProfilePage({super.key});
@@ -72,9 +73,8 @@ class ProfilePage extends StatelessWidget {
                                   labelText: 'Новая эл. почта',
                                   labelStyle: TextStyle(color: Colors.white),
                                   enabledBorder: OutlineInputBorder(
-                                    borderRadius: BorderRadius.circular(7),
-                                    borderSide: BorderSide(color: Colors.grey, width: 2.0)
-                                  ),
+                                      borderRadius: BorderRadius.circular(7),
+                                      borderSide: BorderSide(color: Colors.grey, width: 2.0)),
                                   focusedBorder: OutlineInputBorder(
                                     borderRadius: BorderRadius.circular(7),
                                     borderSide: BorderSide(color: Colors.white, width: 2.0),
@@ -102,8 +102,7 @@ class ProfilePage extends StatelessWidget {
                                   labelStyle: TextStyle(color: Colors.white),
                                   enabledBorder: OutlineInputBorder(
                                       borderRadius: BorderRadius.circular(7),
-                                      borderSide: BorderSide(color: Colors.grey, width: 2.0)
-                                  ),
+                                      borderSide: BorderSide(color: Colors.grey, width: 2.0)),
                                   focusedBorder: OutlineInputBorder(
                                     borderRadius: BorderRadius.circular(7),
                                     borderSide: BorderSide(color: Colors.white, width: 2.0),
@@ -129,8 +128,7 @@ class ProfilePage extends StatelessWidget {
                                   border: OutlineInputBorder(),
                                   enabledBorder: OutlineInputBorder(
                                       borderRadius: BorderRadius.circular(7),
-                                      borderSide: BorderSide(color: Colors.grey, width: 2.0)
-                                  ),
+                                      borderSide: BorderSide(color: Colors.grey, width: 2.0)),
                                   focusedBorder: OutlineInputBorder(
                                     borderRadius: BorderRadius.circular(7),
                                     borderSide: BorderSide(color: Colors.white, width: 2.0),
@@ -191,9 +189,7 @@ class ProfilePage extends StatelessWidget {
                                 );
                               } else if (formKey.currentState?.validate() ?? false) {
                                 Provider.of<UserState>(context, listen: false)
-                                    .updateUserData(
-                                    emailController.text,
-                                    passwordController.text);
+                                    .updateUserData(emailController.text, passwordController.text);
                                 Navigator.pop(context);
                               }
                             },

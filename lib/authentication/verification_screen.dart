@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:tmanager/main_app/main_page.dart';
 
+import 'registration_screen.dart';
+
 class VerificationScreen extends StatefulWidget {
   const VerificationScreen({super.key});
   @override
@@ -27,6 +29,7 @@ class VerificationScreenState extends State<VerificationScreen> {
       );
     }
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -83,8 +86,8 @@ class VerificationScreenState extends State<VerificationScreen> {
                   labelStyle: TextStyle(color: Colors.white),
                   border: OutlineInputBorder(),
                   enabledBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(7),
-                      borderSide: BorderSide(color: Colors.grey, width: 2.0)
+                    borderRadius: BorderRadius.circular(7),
+                    borderSide: BorderSide(color: Colors.grey, width: 2.0),
                   ),
                   focusedBorder: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(7),
