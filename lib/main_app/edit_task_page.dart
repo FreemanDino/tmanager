@@ -43,7 +43,7 @@ class EditTaskPageState extends State<EditTaskPage> {
         elevation: 0,
         centerTitle: true,
         iconTheme: const IconThemeData(
-          color: Colors.white, // Стрелка "назад" - белая
+          color: Colors.white,
         ),
         title: const LogoText(),
       ),

@@ -280,7 +280,7 @@ class MainPageScreenState extends State<MainPageScreen> {
             child: const Text(
               'Отмена',
               style: TextStyle(
-                color: Colors.white, // Белый цвет текста
+                color: Colors.white,
                 fontFamily: 'Roboto',
                 fontWeight: FontWeight.normal,
               ),

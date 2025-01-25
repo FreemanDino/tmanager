@@ -49,7 +49,7 @@ class ProfilePage extends StatelessWidget {
                     context: context,
                     builder: (BuildContext context) {
                       return AlertDialog(
-                        backgroundColor: Colors.black,
+                        backgroundColor: const Color(0xFF141414),
                         title: const Text(
                           'Изменить данные',
                           style: TextStyle(color: Colors.white),
@@ -174,9 +174,9 @@ class ProfilePage extends StatelessWidget {
                                 );
                                 return;
                               }
-                              if (passwordController.text.length < 16) {
+                              if (passwordController.text.length < 6) {
                                 ScaffoldMessenger.of(context).showSnackBar(
-                                  const SnackBar(content: Text('Пароль должен содержать минимум 16 символов')),
+                                  const SnackBar(content: Text('Пароль должен содержать минимум 6 символов')),
                                 );
                                 return;
                               }
@@ -197,13 +197,13 @@ class ProfilePage extends StatelessWidget {
                                 if (states.contains(WidgetState.hovered) || states.contains(WidgetState.pressed)) {
                                   return Colors.grey;
                                 }
-                                return Colors.transparent;
+                                  return Colors.transparent;
                               }),
                             ),
                             child: const Text(
                               'Сохранить',
                               style: TextStyle(
-                                color: Colors.white, // Белый цвет текста
+                                color: Colors.white,
                                 fontFamily: 'Roboto',
                                 fontWeight: FontWeight.normal,
                               ),

@@ -138,7 +138,7 @@ class RegistrationScreenState extends State<RegistrationScreen> {
                   }
                   if (_passwordController.text.length < 6) {
                     ScaffoldMessenger.of(context).showSnackBar(
-                      const SnackBar(content: Text('Пароль должен содержать минимум 16 символов')),
+                      const SnackBar(content: Text('Пароль должен содержать минимум 6 символов')),
                     );
                     return;
                   }
