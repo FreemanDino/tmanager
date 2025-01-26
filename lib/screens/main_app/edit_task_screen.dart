@@ -1,17 +1,18 @@
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
-import 'package:tmanager/core/routers/app_routers.dart';
+import 'package:provider/provider.dart';
+import 'package:tmanager/core/models/task_model.dart';
+import 'package:tmanager/core/providers/task_provider.dart';
 import 'package:tmanager/screens/main_app/widgets/main_logo_text.dart';
 
 class EditTaskScreen extends StatefulWidget {
-  final String title;
-  final String description;
+  final TaskModel? task;
   final Function(String, String) onSave;
+  final bool isNew;
 
   const EditTaskScreen({
-    required this.title,
-    required this.description,
     required this.onSave,
+    this.task,
+    this.isNew = false,
     super.key,
   });
 
@@ -22,12 +23,14 @@ class EditTaskScreen extends StatefulWidget {
 class EditTaskScreenState extends State<EditTaskScreen> {
   late TextEditingController _titleController;
   late TextEditingController _descriptionController;
+  late TaskModel _editedTask;
 
   @override
   void initState() {
     super.initState();
-    _titleController = TextEditingController(text: widget.title);
-    _descriptionController = TextEditingController(text: widget.description);
+    _editedTask = widget.task ?? TaskModel.empty();
+    _titleController = TextEditingController(text: _editedTask.title);
+    _descriptionController = TextEditingController(text: _editedTask.description);
   }
 
   @override
@@ -97,8 +100,7 @@ class EditTaskScreenState extends State<EditTaskScreen> {
                 style: ElevatedButton.styleFrom(
                   backgroundColor: Colors.white,
                   foregroundColor: Colors.black,
-                  padding:
-                      const EdgeInsets.symmetric(vertical: 20, horizontal: 50),
+                  padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 50),
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(7),
                   ),
@@ -108,7 +110,10 @@ class EditTaskScreenState extends State<EditTaskScreen> {
                     _titleController.text,
                     _descriptionController.text,
                   );
-                  context.go(AppRoutes.home.path);
+
+                  context.read<TaskProvider>().saveTask(_editedTask);
+
+                  // context.go(AppRoutes.home.path);
                   Navigator.pop(context);
                 },
                 child: const Text(

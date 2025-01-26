@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
+import 'package:tmanager/core/models/task_model.dart';
 import 'package:tmanager/core/providers/main_navigation_provider.dart';
 import 'package:tmanager/core/providers/task_provider.dart';
 import 'package:tmanager/core/routers/app_routers.dart';
@@ -25,7 +26,7 @@ class MainScreen extends StatelessWidget {
         title: const MainLogoText(),
       ),
       body: Padding(
-        padding: const EdgeInsets.all(16.0),
+        padding: const EdgeInsets.symmetric(horizontal: 16.0),
         child: IndexedStack(
           index: index,
           children: const [
@@ -47,8 +48,7 @@ class MainScreen extends StatelessWidget {
         selectedItemColor: Colors.red,
         unselectedItemColor: Colors.white,
         currentIndex: index,
-        onTap: (index) =>
-            context.read<MainNavigationProvider>().setCurrentIndex(index),
+        onTap: (index) => context.read<MainNavigationProvider>().setCurrentIndex(index),
         items: const [
           BottomNavigationBarItem(
             icon: Icon(Icons.home),
@@ -110,15 +110,13 @@ class MainScreen extends StatelessWidget {
         actions: [
           TextButton(
             onPressed: () {
-              Provider.of<TaskProvider>(context, listen: false)
-                  .addTask(title, description);
+              Provider.of<TaskProvider>(context, listen: false).addTask(title, description);
               Navigator.pop(context);
             },
             style: ButtonStyle(
               overlayColor: WidgetStateProperty.resolveWith<Color>(
                 (states) {
-                  if (states.contains(WidgetState.hovered) ||
-                      states.contains(WidgetState.pressed)) {
+                  if (states.contains(WidgetState.hovered) || states.contains(WidgetState.pressed)) {
                     return Colors.grey;
                   }
                   return Colors.transparent;
@@ -136,36 +134,30 @@ class MainScreen extends StatelessWidget {
           ),
           TextButton(
             onPressed: () {
-              context.go(
-                '${AppRoutes.editTask.path}?title=$title',
-              );
+              // context.go(
+              //   '${AppRoutes.editTask.path}?title=$title',
+              // );
               Navigator.push(
                 context,
                 MaterialPageRoute(
                   builder: (context) => EditTaskScreen(
-                    title: title, // Pass the current title here
-                    description:
-                        description, // Pass the current description here
                     onSave: (updatedTitle, updatedDescription) {
-                      Provider.of<TaskProvider>(context, listen: false)
-                          .editTask(
-                        'task-id',
-                        updatedTitle,
-                        updatedDescription,
-                      );
+                      context.read<TaskProvider>().addTask(
+                            updatedTitle,
+                            updatedDescription,
+                          );
                     },
                   ),
                 ),
               );
-              Provider.of<TaskProvider>(context, listen: false)
-                  .addTask(title, description);
-              Navigator.pop(context);
+              // Provider.of<TaskProvider>(context, listen: false)
+              //     .addTask(title, description);
+              // Navigator.pop(context);
             },
             style: ButtonStyle(
               overlayColor: WidgetStateProperty.resolveWith<Color>(
                 (states) {
-                  if (states.contains(WidgetState.hovered) ||
-                      states.contains(WidgetState.pressed)) {
+                  if (states.contains(WidgetState.hovered) || states.contains(WidgetState.pressed)) {
                     return Colors.grey;
                   }
                   return Colors.transparent;

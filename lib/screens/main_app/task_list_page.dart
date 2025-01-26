@@ -17,8 +17,7 @@ class _TaskListPageState extends State<TaskListPage> {
   @override
   void initState() {
     super.initState();
-    final taskProvider = Provider.of<TaskProvider>(context, listen: false)
-    ..loadTasks();
+    final taskProvider = Provider.of<TaskProvider>(context, listen: false)..loadTasks();
     searchController.addListener(() {
       taskProvider.filterTasks(searchController.text);
     });
@@ -26,98 +25,103 @@ class _TaskListPageState extends State<TaskListPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Consumer<TaskProvider>(
-      builder: (context, taskProvider, child) {
-        final tasks = taskProvider.filteredTasks;
+    final tasks = context.watch<TaskProvider>().filteredTasks;
 
-        return Column(
-          children: [
-            TextField(
-              controller: searchController,
-              style: const TextStyle(color: Colors.white),
-              cursorColor: Colors.white,
-              decoration: InputDecoration(
-                labelText: 'Поиск задачи',
-                labelStyle: const TextStyle(color: Colors.white),
-                prefixIcon: const Icon(Icons.search, color: Colors.white),
-                border: const OutlineInputBorder(),
-                enabledBorder: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(7),
-                  borderSide: const BorderSide(color: Colors.grey, width: 2.0),
-                ),
-                focusedBorder: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(7),
-                  borderSide: const BorderSide(color: Colors.white, width: 2.0),
+    return Column(
+      children: [
+        ColoredBox(
+          color: Colors.black,
+          child: Column(
+            children: [
+              TextField(
+                controller: searchController,
+                style: const TextStyle(color: Colors.white),
+                cursorColor: Colors.white,
+                decoration: InputDecoration(
+                  labelText: 'Поиск задачи',
+                  labelStyle: const TextStyle(color: Colors.white),
+                  prefixIcon: const Icon(Icons.search, color: Colors.white),
+                  border: const OutlineInputBorder(),
+                  enabledBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(7),
+                    borderSide: const BorderSide(color: Colors.grey, width: 2.0),
+                  ),
+                  focusedBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(7),
+                    borderSide: const BorderSide(color: Colors.white, width: 2.0),
+                  ),
                 ),
               ),
-            ),
-            const SizedBox(height: 20),
-            
-            Row(
-              mainAxisAlignment: MainAxisAlignment.end,
-              children: [
-                IconButton(
-                  icon: const Icon(Icons.view_module, color: Colors.white),
-                  onPressed: () {
-                    setState(() {
-                      isGridView = true;
-                    });
-                  },
-                ),
-                IconButton(
-                  icon: const Icon(Icons.view_list, color: Colors.white),
-                  onPressed: () {
-                    setState(() {
-                      isGridView = false;
-                    });
-                  },
-                ),
-              ],
-            ),
+              const SizedBox(height: 20),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: [
+                  IconButton(
+                    icon: const Icon(Icons.view_module, color: Colors.white),
+                    onPressed: () {
+                      setState(() {
+                        isGridView = true;
+                      });
+                    },
+                  ),
+                  IconButton(
+                    icon: const Icon(Icons.view_list, color: Colors.white),
+                    onPressed: () {
+                      setState(() {
+                        isGridView = false;
+                      });
+                    },
+                  ),
+                ],
+              ),
+            ],
+          ),
+        ),
 
-            // Task List
-            Expanded(
-              child: isGridView
-                  ? GridView.builder(
-                      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                        crossAxisCount: 2,
-                        crossAxisSpacing: 10,
-                        mainAxisSpacing: 10,
+        // Task List
+        Expanded(
+          child: isGridView
+              ? GridView.builder(
+                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: 2,
+                    crossAxisSpacing: 10,
+                    mainAxisSpacing: 10,
+                  ),
+                  itemCount: tasks.length,
+                  itemBuilder: (context, index) {
+                    return Material(
+                      color: Colors.white10,
+                      borderRadius: BorderRadius.circular(10),
+                      child: InkWell(
+                        borderRadius: BorderRadius.circular(10),
+                        onTap: () => _showTaskOptions(context, index, tasks[index]),
+                        child: Center(
+                          child: Text(
+                            tasks[index].title,
+                            style: const TextStyle(color: Colors.white),
+                          ),
+                        ),
                       ),
-                      itemCount: tasks.length,
-                      itemBuilder: (context, index) {
-                        return GestureDetector(
-                          onTap: () => _showTaskOptions(context, index, tasks[index]),
-                          child: Card(
-                            color: Colors.grey[800],
-                            child: Center(
-                              child: Text(
-                                tasks[index].title,
-                                style: const TextStyle(color: Colors.white),
-                              ),
-                            ),
-                          ),
-                        );
-                      },
-                    )
-                  : ListView.builder(
-                      itemCount: tasks.length,
-                      itemBuilder: (context, index) {
-                        return GestureDetector(
-                          onTap: () => _showTaskOptions(context, index, tasks[index]),
-                          child: ListTile(
-                            title: Text(
-                              tasks[index].title,
-                              style: const TextStyle(color: Colors.white),
-                            ),
-                          ),
-                        );
-                      },
-                    ),
-            ),
-          ],
-        );
-      },
+                    );
+                  },
+                )
+              : ListView.separated(
+                  itemCount: tasks.length,
+                  separatorBuilder: (_, __) => const SizedBox(height: 4),
+                  itemBuilder: (context, index) {
+                    return ListTile(
+                      onTap: () => _showTaskOptions(context, index, tasks[index]),
+                      tileColor: Colors.white10,
+                      title: Text(
+                        tasks[index].title,
+                        style: const TextStyle(color: Colors.white),
+                      ),
+                      trailing: IconButton(onPressed: () {}, icon: const Icon(Icons.clear)),
+                    );
+                  },
+                ),
+        ),
+      ],
     );
   }
 
@@ -171,13 +175,15 @@ class _TaskListPageState extends State<TaskListPage> {
             TextField(
               controller: titleController,
               onChanged: (value) => updatedTitle = value,
-              decoration: const InputDecoration(labelText: 'Название задачи', labelStyle: TextStyle(color: Colors.grey)),
+              decoration:
+                  const InputDecoration(labelText: 'Название задачи', labelStyle: TextStyle(color: Colors.grey)),
               style: const TextStyle(color: Colors.white),
             ),
             TextField(
               controller: descriptionController,
               onChanged: (value) => updatedDescription = value,
-              decoration: const InputDecoration(labelText: 'Описание задачи', labelStyle: TextStyle(color: Colors.grey)),
+              decoration:
+                  const InputDecoration(labelText: 'Описание задачи', labelStyle: TextStyle(color: Colors.grey)),
               style: const TextStyle(color: Colors.white),
             ),
           ],
@@ -189,11 +195,7 @@ class _TaskListPageState extends State<TaskListPage> {
           ),
           TextButton(
             onPressed: () {
-              Provider.of<TaskProvider>(context, listen: false).editTask(
-                task.id,
-                updatedTitle,
-                updatedDescription,
-              );
+              Provider.of<TaskProvider>(context, listen: false).updateTask(task);
               Navigator.pop(context);
             },
             child: const Text('Сохранить', style: TextStyle(color: Colors.white)),
