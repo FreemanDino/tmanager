@@ -8,7 +8,7 @@ class ProfilePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final provider = context.read<UserProvider>();
+    // final provider = context.read<UserProvider>();
     final user = context.select((UserProvider p) => p.user);
     final GlobalKey<FormState> formKey = GlobalKey<FormState>();
     final emailController = TextEditingController();
@@ -66,7 +66,8 @@ class ProfilePage extends StatelessWidget {
                                 controller: emailController,
                                 decoration: InputDecoration(
                                   labelText: 'Новая эл. почта',
-                                  labelStyle: const TextStyle(color: Colors.white),
+                                  labelStyle:
+                                      const TextStyle(color: Colors.white),
                                   enabledBorder: OutlineInputBorder(
                                     borderRadius: BorderRadius.circular(7),
                                     borderSide: const BorderSide(
@@ -76,9 +77,15 @@ class ProfilePage extends StatelessWidget {
                                   ),
                                   focusedBorder: OutlineInputBorder(
                                     borderRadius: BorderRadius.circular(7),
-                                    borderSide: const BorderSide(color: Colors.white, width: 2.0),
+                                    borderSide: const BorderSide(
+                                      color: Colors.white,
+                                      width: 2.0,
+                                    ),
                                   ),
-                                  prefixIcon: const Icon(Icons.email, color: Colors.white),
+                                  prefixIcon: const Icon(
+                                    Icons.email,
+                                    color: Colors.white,
+                                  ),
                                 ),
                                 validator: (value) {
                                   if (value == null || value.isEmpty) {
@@ -98,16 +105,26 @@ class ProfilePage extends StatelessWidget {
                                 obscureText: true,
                                 decoration: InputDecoration(
                                   labelText: 'Новый пароль',
-                                  labelStyle: const TextStyle(color: Colors.white),
+                                  labelStyle:
+                                      const TextStyle(color: Colors.white),
                                   enabledBorder: OutlineInputBorder(
                                     borderRadius: BorderRadius.circular(7),
-                                    borderSide: const BorderSide(color: Colors.grey, width: 2.0),
+                                    borderSide: const BorderSide(
+                                      color: Colors.grey,
+                                      width: 2.0,
+                                    ),
                                   ),
                                   focusedBorder: OutlineInputBorder(
                                     borderRadius: BorderRadius.circular(7),
-                                    borderSide: const BorderSide(color: Colors.white, width: 2.0),
+                                    borderSide: const BorderSide(
+                                      color: Colors.white,
+                                      width: 2.0,
+                                    ),
                                   ),
-                                  prefixIcon: const Icon(Icons.lock, color: Colors.white),
+                                  prefixIcon: const Icon(
+                                    Icons.lock,
+                                    color: Colors.white,
+                                  ),
                                 ),
                                 validator: (value) {
                                   if (value == null || value.isEmpty) {
@@ -124,17 +141,29 @@ class ProfilePage extends StatelessWidget {
                                 obscureText: true,
                                 decoration: InputDecoration(
                                   labelText: 'Подтвердить пароль',
-                                  labelStyle: const TextStyle(fontFamily: 'Roboto', color: Colors.white),
+                                  labelStyle: const TextStyle(
+                                    fontFamily: 'Roboto',
+                                    color: Colors.white,
+                                  ),
                                   border: const OutlineInputBorder(),
                                   enabledBorder: OutlineInputBorder(
                                     borderRadius: BorderRadius.circular(7),
-                                    borderSide: const BorderSide(color: Colors.grey, width: 2.0),
+                                    borderSide: const BorderSide(
+                                      color: Colors.grey,
+                                      width: 2.0,
+                                    ),
                                   ),
                                   focusedBorder: OutlineInputBorder(
                                     borderRadius: BorderRadius.circular(7),
-                                    borderSide: const BorderSide(color: Colors.white, width: 2.0),
+                                    borderSide: const BorderSide(
+                                      color: Colors.white,
+                                      width: 2.0,
+                                    ),
                                   ),
-                                  prefixIcon: const Icon(Icons.lock, color: Colors.white),
+                                  prefixIcon: const Icon(
+                                    Icons.lock,
+                                    color: Colors.white,
+                                  ),
                                 ),
                               ),
                             ],
@@ -146,8 +175,11 @@ class ProfilePage extends StatelessWidget {
                               Navigator.pop(context);
                             },
                             style: ButtonStyle(
-                              overlayColor: WidgetStateProperty.resolveWith<Color>((states) {
-                                if (states.contains(WidgetState.hovered) || states.contains(WidgetState.pressed)) {
+                              overlayColor:
+                                  WidgetStateProperty.resolveWith<Color>(
+                                      (states) {
+                                if (states.contains(WidgetState.hovered) ||
+                                    states.contains(WidgetState.pressed)) {
                                   return Colors.grey;
                                 }
                                 return Colors.transparent;
@@ -168,27 +200,43 @@ class ProfilePage extends StatelessWidget {
                                   passwordController.text.isEmpty ||
                                   confirmPasswordController.text.isEmpty) {
                                 ScaffoldMessenger.of(context).showSnackBar(
-                                  const SnackBar(content: Text('Пожалуйста, заполните все поля')),
+                                  const SnackBar(
+                                    content: Text(
+                                      'Пожалуйста, заполните все поля',
+                                    ),
+                                  ),
                                 );
                                 return;
                               }
                               if (!emailRegex.hasMatch(emailController.text)) {
                                 ScaffoldMessenger.of(context).showSnackBar(
-                                  const SnackBar(content: Text('Неверный формат электронной почты')),
+                                  const SnackBar(
+                                    content: Text(
+                                      'Неверный формат электронной почты',
+                                    ),
+                                  ),
                                 );
                                 return;
                               }
                               if (passwordController.text.length < 6) {
                                 ScaffoldMessenger.of(context).showSnackBar(
-                                  const SnackBar(content: Text('Пароль должен содержать минимум 6 символов')),
+                                  const SnackBar(
+                                    content: Text(
+                                      'Пароль должен содержать минимум 6 символов',
+                                    ),
+                                  ),
                                 );
                                 return;
                               }
-                              if (passwordController.text != confirmPasswordController.text) {
+                              if (passwordController.text !=
+                                  confirmPasswordController.text) {
                                 ScaffoldMessenger.of(context).showSnackBar(
-                                  const SnackBar(content: Text('Пароли не совпадают')),
+                                  const SnackBar(
+                                    content: Text('Пароли не совпадают'),
+                                  ),
                                 );
-                              } else if (formKey.currentState?.validate() ?? false) {
+                              } else if (formKey.currentState?.validate() ??
+                                  false) {
                                 context.read<UserProvider>().saveLogin(
                                       email: emailController.text,
                                       password: passwordController.text,
@@ -197,8 +245,11 @@ class ProfilePage extends StatelessWidget {
                               }
                             },
                             style: ButtonStyle(
-                              overlayColor: WidgetStateProperty.resolveWith<Color>((states) {
-                                if (states.contains(WidgetState.hovered) || states.contains(WidgetState.pressed)) {
+                              overlayColor:
+                                  WidgetStateProperty.resolveWith<Color>(
+                                      (states) {
+                                if (states.contains(WidgetState.hovered) ||
+                                    states.contains(WidgetState.pressed)) {
                                   return Colors.grey;
                                 }
                                 return Colors.transparent;
@@ -221,7 +272,8 @@ class ProfilePage extends StatelessWidget {
                 style: ElevatedButton.styleFrom(
                   backgroundColor: Colors.white,
                   foregroundColor: Colors.black,
-                  padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 50),
+                  padding:
+                      const EdgeInsets.symmetric(vertical: 20, horizontal: 50),
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(7),
                   ),
