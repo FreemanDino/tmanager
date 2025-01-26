@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
-import 'package:tmanager/core/provider/main_navigation_provider.dart';
-import 'package:tmanager/core/route/app_routers.dart';
+import 'package:tmanager/core/providers/main_navigation_provider.dart';
+import 'package:tmanager/core/routers/app_routers.dart';
 import 'package:tmanager/screens/main_app/widgets/main_logo_text.dart';
 
 import 'profile_page.dart';

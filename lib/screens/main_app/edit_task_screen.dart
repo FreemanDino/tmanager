@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:tmanager/core/route/app_routers.dart';
+import 'package:tmanager/core/routers/app_routers.dart';
 import 'package:tmanager/screens/main_app/widgets/main_logo_text.dart';
 
 class EditTaskScreen extends StatefulWidget {

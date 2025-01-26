@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:tmanager/core/model/user_model.dart';
+import 'package:tmanager/core/models/user_model.dart';
 import 'package:tmanager/core/service/user_service.dart';
 
 class UserProvider with ChangeNotifier {

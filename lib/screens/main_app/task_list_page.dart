@@ -1,11 +1,7 @@
-// Created Date: January 26th 2025
-// Author: Oleg Khmara
-
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:tmanager/core/provider/task_provider.dart';
-
+import 'package:tmanager/core/providers/task_provider.dart';
 import 'edit_task_screen.dart';
 
 class TaskListPage extends StatefulWidget {
