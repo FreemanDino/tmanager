@@ -42,7 +42,7 @@ final GoRouter router = GoRouter(
     ),
     GoRoute(
       path: AppRoutes.editTask.path,
-      builder: (context, state) => EditTaskPage(title: '', description: ''),
+      builder: (context, state) => const EditTaskPage(title: '', description: ''),
     ),
   ],
 );

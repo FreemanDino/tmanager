@@ -35,11 +35,12 @@ class TaskProvider with ChangeNotifier {
     }
   }
 
-  Future<void> deleteTask(String id) async {
-    _tasks.removeWhere((task) => task.id == id);
-    await _taskService.saveTasks(_tasks);
-    notifyListeners();
-  }
+  Future<void> deleteTask(TaskModel task) async {
+  _tasks.remove(task);
+  _filteredTasks = _tasks;
+  await _taskService.saveTasks(_tasks);
+  notifyListeners();
+}
 
   List<TaskModel> searchTasks(String query) {
     return _tasks
@@ -47,4 +48,14 @@ class TaskProvider with ChangeNotifier {
         .toList();
   }
 
+  void filterTasks(String query) {
+    if (query.isEmpty) {
+      _filteredTasks = _tasks;
+    } else {
+      _filteredTasks = _tasks.where((task) {
+        return task.title.toLowerCase().contains(query.toLowerCase());
+      }).toList();
+    }
+    notifyListeners();
+  }
 }
