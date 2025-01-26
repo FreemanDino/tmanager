@@ -1,5 +1,6 @@
 import 'package:go_router/go_router.dart';
 import 'package:tmanager/authentication/first_login_screen.dart';
+import 'package:tmanager/main_app/profile_page.dart';
 import '../authentication/registration_screen.dart';
 import '../authentication/verification_screen.dart';
 import '../main_app/main_page.dart';
@@ -26,7 +27,11 @@ final GoRouter router = GoRouter(
     ),
     GoRoute(
       path: '/home',
-      builder: (context, state) => const MainPage(),
+      builder: (context, state) => const MainScreen(),
+    ),
+    GoRoute(
+      path: '/profile',
+      builder: (context, state) => const ProfileScreen(),
     ),
   ],
 );

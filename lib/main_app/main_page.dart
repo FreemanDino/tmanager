@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:tmanager/main_app/widgets/main_logo_text.dart';
-import 'edit_task_page.dart';
+import 'edit_task_screen.dart';
 
-class MainPage extends StatefulWidget {
-  const MainPage({super.key});
+class MainScreen extends StatefulWidget {
+  const MainScreen({super.key});
   @override
-  MainPageState createState() => MainPageState();
+  MainScreenState createState() => MainScreenState();
 }
 
-class MainPageState extends State<MainPage> {
+class MainScreenState extends State<MainScreen> {
   List<Map<String, String>> tasks = [];
   List<Map<String, String>> filteredTasks = [];
   bool isGridView = false;
@@ -200,7 +200,7 @@ class MainPageState extends State<MainPage> {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (context) => EditTaskPage(
+                      builder: (context) => EditTaskScreen(
                         title: tasks[index]['title'] ?? '',
                         description: tasks[index]['description'] ?? '',
                         onSave: (updatedTitle, updatedDescription) {

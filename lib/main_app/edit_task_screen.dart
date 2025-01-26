@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:tmanager/main_app/widgets/main_logo_text.dart';
 
-class EditTaskPage extends StatefulWidget {
+class EditTaskScreen extends StatefulWidget {
   final String title;
   final String description;
   final Function(String, String) onSave;
 
-  const EditTaskPage({
+  const EditTaskScreen({
     required this.title,
     required this.description,
     required this.onSave,
@@ -14,10 +14,10 @@ class EditTaskPage extends StatefulWidget {
   });
 
   @override
-  EditTaskPageState createState() => EditTaskPageState();
+  EditTaskScreenState createState() => EditTaskScreenState();
 }
 
-class EditTaskPageState extends State<EditTaskPage> {
+class EditTaskScreenState extends State<EditTaskScreen> {
   late TextEditingController _titleController;
   late TextEditingController _descriptionController;
 

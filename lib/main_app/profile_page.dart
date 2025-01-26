@@ -3,8 +3,8 @@ import 'package:provider/provider.dart';
 
 import '../provider/user_provider.dart';
 
-class ProfilePage extends StatelessWidget {
-  const ProfilePage({super.key});
+class ProfileScreen extends StatelessWidget {
+  const ProfileScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
