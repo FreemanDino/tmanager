@@ -2,9 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 import 'package:tmanager/core/providers/main_navigation_provider.dart';
+import 'package:tmanager/core/providers/task_provider.dart';
 import 'package:tmanager/core/routers/app_routers.dart';
+import 'package:tmanager/screens/main_app/edit_task_screen.dart';
 import 'package:tmanager/screens/main_app/widgets/main_logo_text.dart';
-
 import 'profile_page.dart';
 import 'setting_page.dart';
 import 'task_list_page.dart';
@@ -108,7 +109,7 @@ class MainScreen extends StatelessWidget {
         actions: [
           TextButton(
             onPressed: () {
-              // _addTask(title, description);
+              Provider.of<TaskProvider>(context, listen: false).addTask(title, description);
               Navigator.pop(context);
             },
             style: ButtonStyle(
@@ -133,20 +134,20 @@ class MainScreen extends StatelessWidget {
           TextButton(
             onPressed: () {
               context.go(AppRoutes.editTask.path);
-              // Navigator.push(
-              //   context,
-              //   MaterialPageRoute(
-              //     builder: (context) => EditTaskScreen(
-              //       title: '111',
-              //       description: '',
-              //       onSave: (updatedTitle, updatedDescription) {
-              //         // _editTask(index, updatedTitle, updatedDescription);
-              //       },
-              //     ),
-              //   ),
-              // );
-              // _addTask(title, description);
-              // Navigator.pop(context);
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => EditTaskScreen(
+                    title: '',
+                    description: '',
+                    onSave: (updatedTitle, updatedDescription) {
+                      Provider.of<TaskProvider>(context, listen: false).editTask('task-id', updatedTitle, updatedDescription);
+                    },
+                  ),
+                ),
+              );
+              Provider.of<TaskProvider>(context, listen: false).addTask(title, description);
+              Navigator.pop(context);
             },
             style: ButtonStyle(
               overlayColor: WidgetStateProperty.resolveWith<Color>(
