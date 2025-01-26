@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
+import 'package:tmanager/core/routers/app_routers.dart';
 import 'package:tmanager/screens/main_app/widgets/main_logo_text.dart';
 
 class EditTaskScreen extends StatefulWidget {
@@ -95,15 +97,19 @@ class EditTaskScreenState extends State<EditTaskScreen> {
                 style: ElevatedButton.styleFrom(
                   backgroundColor: Colors.white,
                   foregroundColor: Colors.black,
-                  padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 50),
+                  padding:
+                      const EdgeInsets.symmetric(vertical: 20, horizontal: 50),
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(7),
                   ),
                 ),
                 onPressed: () {
-                  widget.onSave(_titleController.text, _descriptionController.text);
-                  // context.go(AppRoutes.home.path);
-                  // Navigator.pop(context);
+                  widget.onSave(
+                    _titleController.text,
+                    _descriptionController.text,
+                  );
+                  context.go(AppRoutes.home.path);
+                  Navigator.pop(context);
                 },
                 child: const Text(
                   'Сохранить',

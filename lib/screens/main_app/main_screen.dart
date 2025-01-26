@@ -47,7 +47,8 @@ class MainScreen extends StatelessWidget {
         selectedItemColor: Colors.red,
         unselectedItemColor: Colors.white,
         currentIndex: index,
-        onTap: (index) => context.read<MainNavigationProvider>().setCurrentIndex(index),
+        onTap: (index) =>
+            context.read<MainNavigationProvider>().setCurrentIndex(index),
         items: const [
           BottomNavigationBarItem(
             icon: Icon(Icons.home),
@@ -109,13 +110,15 @@ class MainScreen extends StatelessWidget {
         actions: [
           TextButton(
             onPressed: () {
-              Provider.of<TaskProvider>(context, listen: false).addTask(title, description);
+              Provider.of<TaskProvider>(context, listen: false)
+                  .addTask(title, description);
               Navigator.pop(context);
             },
             style: ButtonStyle(
               overlayColor: WidgetStateProperty.resolveWith<Color>(
                 (states) {
-                  if (states.contains(WidgetState.hovered) || states.contains(WidgetState.pressed)) {
+                  if (states.contains(WidgetState.hovered) ||
+                      states.contains(WidgetState.pressed)) {
                     return Colors.grey;
                   }
                   return Colors.transparent;
@@ -133,26 +136,36 @@ class MainScreen extends StatelessWidget {
           ),
           TextButton(
             onPressed: () {
-              context.go(AppRoutes.editTask.path);
+              context.go(
+                '${AppRoutes.editTask.path}?title=$title',
+              );
               Navigator.push(
                 context,
                 MaterialPageRoute(
                   builder: (context) => EditTaskScreen(
-                    title: '',
-                    description: '',
+                    title: title, // Pass the current title here
+                    description:
+                        description, // Pass the current description here
                     onSave: (updatedTitle, updatedDescription) {
-                      Provider.of<TaskProvider>(context, listen: false).editTask('task-id', updatedTitle, updatedDescription);
+                      Provider.of<TaskProvider>(context, listen: false)
+                          .editTask(
+                        'task-id',
+                        updatedTitle,
+                        updatedDescription,
+                      );
                     },
                   ),
                 ),
               );
-              Provider.of<TaskProvider>(context, listen: false).addTask(title, description);
+              Provider.of<TaskProvider>(context, listen: false)
+                  .addTask(title, description);
               Navigator.pop(context);
             },
             style: ButtonStyle(
               overlayColor: WidgetStateProperty.resolveWith<Color>(
                 (states) {
-                  if (states.contains(WidgetState.hovered) || states.contains(WidgetState.pressed)) {
+                  if (states.contains(WidgetState.hovered) ||
+                      states.contains(WidgetState.pressed)) {
                     return Colors.grey;
                   }
                   return Colors.transparent;
