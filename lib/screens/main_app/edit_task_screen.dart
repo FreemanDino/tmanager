@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
+import 'package:tmanager/core/route/app_routers.dart';
 import 'package:tmanager/screens/main_app/widgets/main_logo_text.dart';
 
 class EditTaskScreen extends StatefulWidget {
@@ -102,7 +104,8 @@ class EditTaskScreenState extends State<EditTaskScreen> {
                 ),
                 onPressed: () {
                   widget.onSave(_titleController.text, _descriptionController.text);
-                  Navigator.pop(context);
+                  // context.go(AppRoutes.home.path);
+                  // Navigator.pop(context);
                 },
                 child: const Text(
                   'Сохранить',

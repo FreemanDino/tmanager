@@ -6,6 +6,7 @@ enum AppRoutes {
   home,
   profile,
   settings,
+  editTask,
 }
 
 extension AppPageExtension on AppRoutes {
@@ -17,5 +18,6 @@ extension AppPageExtension on AppRoutes {
         AppRoutes.home => '/home',
         AppRoutes.profile => '/profile',
         AppRoutes.settings => '/settings',
+        AppRoutes.editTask => '/editTask',
       };
 }

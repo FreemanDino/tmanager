@@ -1,16 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
+import 'package:tmanager/core/route/app_routers.dart';
 
 import 'widgets/main_logo_text.dart';
 
 class EditTaskPage extends StatefulWidget {
   final String title;
   final String description;
-  final Function(String, String) onSave;
 
   const EditTaskPage({
     required this.title,
     required this.description,
-    required this.onSave,
     super.key,
   });
 
@@ -102,8 +102,10 @@ class EditTaskPageState extends State<EditTaskPage> {
                   ),
                 ),
                 onPressed: () {
-                  widget.onSave(_titleController.text, _descriptionController.text);
-                  Navigator.pop(context);
+                  // widget.onSave(_titleController.text, _descriptionController.text);
+                  // taskProvider.saveTask(_titleController.text, _descriptionController.text);
+                  context.go(AppRoutes.home.path);
+                  // Navigator.pop(context);
                 },
                 child: const Text(
                   'Сохранить',

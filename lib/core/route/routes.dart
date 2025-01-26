@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:tmanager/screens/authentication/first_login_screen.dart';
+import 'package:tmanager/screens/main_app/edit_task_page.dart';
 import 'package:tmanager/screens/main_app/profile_page.dart';
 import '../../screens/authentication/registration_screen.dart';
 import '../../screens/authentication/verification_screen.dart';
@@ -33,11 +34,15 @@ final GoRouter router = GoRouter(
     ),
     GoRoute(
       path: AppRoutes.profile.path,
-      builder: (context, state) => const ProfileScreen(),
+      builder: (context, state) => const ProfilePage(),
     ),
     GoRoute(
       path: AppRoutes.settings.path,
       builder: (context, state) => const SizedBox(),
+    ),
+    GoRoute(
+      path: AppRoutes.editTask.path,
+      builder: (context, state) => EditTaskPage(title: '', description: ''),
     ),
   ],
 );
