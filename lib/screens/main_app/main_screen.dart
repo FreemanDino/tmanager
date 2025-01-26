@@ -1,10 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
-import 'package:tmanager/core/models/task_model.dart';
 import 'package:tmanager/core/providers/main_navigation_provider.dart';
 import 'package:tmanager/core/providers/task_provider.dart';
-import 'package:tmanager/core/routers/app_routers.dart';
 import 'package:tmanager/screens/main_app/edit_task_screen.dart';
 import 'package:tmanager/screens/main_app/widgets/main_logo_text.dart';
 import 'profile_page.dart';
@@ -48,7 +45,8 @@ class MainScreen extends StatelessWidget {
         selectedItemColor: Colors.red,
         unselectedItemColor: Colors.white,
         currentIndex: index,
-        onTap: (index) => context.read<MainNavigationProvider>().setCurrentIndex(index),
+        onTap: (index) =>
+            context.read<MainNavigationProvider>().setCurrentIndex(index),
         items: const [
           BottomNavigationBarItem(
             icon: Icon(Icons.home),
@@ -110,13 +108,15 @@ class MainScreen extends StatelessWidget {
         actions: [
           TextButton(
             onPressed: () {
-              Provider.of<TaskProvider>(context, listen: false).addTask(title, description);
+              Provider.of<TaskProvider>(context, listen: false)
+                  .addTask(title, description);
               Navigator.pop(context);
             },
             style: ButtonStyle(
               overlayColor: WidgetStateProperty.resolveWith<Color>(
                 (states) {
-                  if (states.contains(WidgetState.hovered) || states.contains(WidgetState.pressed)) {
+                  if (states.contains(WidgetState.hovered) ||
+                      states.contains(WidgetState.pressed)) {
                     return Colors.grey;
                   }
                   return Colors.transparent;
@@ -157,7 +157,8 @@ class MainScreen extends StatelessWidget {
             style: ButtonStyle(
               overlayColor: WidgetStateProperty.resolveWith<Color>(
                 (states) {
-                  if (states.contains(WidgetState.hovered) || states.contains(WidgetState.pressed)) {
+                  if (states.contains(WidgetState.hovered) ||
+                      states.contains(WidgetState.pressed)) {
                     return Colors.grey;
                   }
                   return Colors.transparent;
