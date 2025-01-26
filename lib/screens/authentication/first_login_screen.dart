@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:tmanager/main_app/widgets/splash_logo_text.dart';
+import 'package:tmanager/screens/main_app/widgets/splash_logo_text.dart';
 
 class FirstLoginScreen extends StatelessWidget {
   const FirstLoginScreen({super.key});

@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
-import 'package:tmanager/authentication/first_login_screen.dart';
-import '../provider/user_provider.dart';
+import 'package:tmanager/screens/authentication/first_login_screen.dart';
+import '../../core/provider/user_provider.dart';
 
 class RegistrationScreen extends StatefulWidget {
   const RegistrationScreen({super.key});
@@ -72,7 +72,9 @@ class RegistrationScreenState extends State<RegistrationScreen> {
                   labelStyle: const TextStyle(color: Colors.white),
                   border: const OutlineInputBorder(),
                   enabledBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(7), borderSide: const BorderSide(color: Colors.grey, width: 2.0),),
+                    borderRadius: BorderRadius.circular(7),
+                    borderSide: const BorderSide(color: Colors.grey, width: 2.0),
+                  ),
                   focusedBorder: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(7),
                     borderSide: const BorderSide(color: Colors.white, width: 2.0),
@@ -91,7 +93,9 @@ class RegistrationScreenState extends State<RegistrationScreen> {
                   labelStyle: const TextStyle(color: Colors.white),
                   border: const OutlineInputBorder(),
                   enabledBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(7), borderSide: const BorderSide(color: Colors.grey, width: 2.0),),
+                    borderRadius: BorderRadius.circular(7),
+                    borderSide: const BorderSide(color: Colors.grey, width: 2.0),
+                  ),
                   focusedBorder: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(7),
                     borderSide: const BorderSide(color: Colors.white, width: 2.0),
@@ -110,7 +114,9 @@ class RegistrationScreenState extends State<RegistrationScreen> {
                   labelStyle: const TextStyle(fontFamily: 'Roboto', color: Colors.white),
                   border: const OutlineInputBorder(),
                   enabledBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(7), borderSide: const BorderSide(color: Colors.grey, width: 2.0),),
+                    borderRadius: BorderRadius.circular(7),
+                    borderSide: const BorderSide(color: Colors.grey, width: 2.0),
+                  ),
                   focusedBorder: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(7),
                     borderSide: const BorderSide(color: Colors.white, width: 2.0),

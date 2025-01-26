@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:tmanager/service/user_service.dart';
+import 'package:tmanager/core/service/user_service.dart';
 
 class VerificationScreen extends StatefulWidget {
   const VerificationScreen({super.key});

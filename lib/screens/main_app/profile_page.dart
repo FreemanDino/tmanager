@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '../provider/user_provider.dart';
+import '../../core/provider/user_provider.dart';
 
 class ProfileScreen extends StatelessWidget {
   const ProfileScreen({super.key});
@@ -68,10 +68,12 @@ class ProfileScreen extends StatelessWidget {
                                   labelText: 'Новая эл. почта',
                                   labelStyle: const TextStyle(color: Colors.white),
                                   enabledBorder: OutlineInputBorder(
-                                      borderRadius: BorderRadius.circular(7),
-                                      borderSide: const BorderSide(
-                                        color: Colors.grey, width: 2.0,),
-                                      ),
+                                    borderRadius: BorderRadius.circular(7),
+                                    borderSide: const BorderSide(
+                                      color: Colors.grey,
+                                      width: 2.0,
+                                    ),
+                                  ),
                                   focusedBorder: OutlineInputBorder(
                                     borderRadius: BorderRadius.circular(7),
                                     borderSide: const BorderSide(color: Colors.white, width: 2.0),
@@ -98,8 +100,9 @@ class ProfileScreen extends StatelessWidget {
                                   labelText: 'Новый пароль',
                                   labelStyle: const TextStyle(color: Colors.white),
                                   enabledBorder: OutlineInputBorder(
-                                      borderRadius: BorderRadius.circular(7),
-                                      borderSide: const BorderSide(color: Colors.grey, width: 2.0),),
+                                    borderRadius: BorderRadius.circular(7),
+                                    borderSide: const BorderSide(color: Colors.grey, width: 2.0),
+                                  ),
                                   focusedBorder: OutlineInputBorder(
                                     borderRadius: BorderRadius.circular(7),
                                     borderSide: const BorderSide(color: Colors.white, width: 2.0),
@@ -124,8 +127,9 @@ class ProfileScreen extends StatelessWidget {
                                   labelStyle: const TextStyle(fontFamily: 'Roboto', color: Colors.white),
                                   border: const OutlineInputBorder(),
                                   enabledBorder: OutlineInputBorder(
-                                      borderRadius: BorderRadius.circular(7),
-                                      borderSide: const BorderSide(color: Colors.grey, width: 2.0),),
+                                    borderRadius: BorderRadius.circular(7),
+                                    borderSide: const BorderSide(color: Colors.grey, width: 2.0),
+                                  ),
                                   focusedBorder: OutlineInputBorder(
                                     borderRadius: BorderRadius.circular(7),
                                     borderSide: const BorderSide(color: Colors.white, width: 2.0),
@@ -197,7 +201,7 @@ class ProfileScreen extends StatelessWidget {
                                 if (states.contains(WidgetState.hovered) || states.contains(WidgetState.pressed)) {
                                   return Colors.grey;
                                 }
-                                  return Colors.transparent;
+                                return Colors.transparent;
                               }),
                             ),
                             child: const Text(

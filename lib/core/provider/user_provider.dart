@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:tmanager/model/user_model.dart';
-import 'package:tmanager/service/user_service.dart';
+import 'package:tmanager/core/model/user_model.dart';
+import 'package:tmanager/core/service/user_service.dart';
 
 class UserProvider with ChangeNotifier {
   final _userService = UserService.instance;

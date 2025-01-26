@@ -2,7 +2,7 @@
 // Author: Oleg Khmara
 
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:tmanager/model/user_model.dart';
+import 'package:tmanager/core/model/user_model.dart';
 
 class UserService {
   // singleton

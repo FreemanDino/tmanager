@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:tmanager/main_app/widgets/main_logo_text.dart';
+import 'package:tmanager/screens/main_app/widgets/main_logo_text.dart';
 import 'edit_task_screen.dart';
 
 class MainScreen extends StatefulWidget {
@@ -194,22 +194,23 @@ class MainScreenState extends State<MainScreen> {
               },
             ),
             ListTile(
-                leading: const Icon(Icons.open_in_new, color: Colors.white),
-                title: const Text('Открыть', style: TextStyle(color: Colors.white)),
-                onTap: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => EditTaskScreen(
-                        title: tasks[index]['title'] ?? '',
-                        description: tasks[index]['description'] ?? '',
-                        onSave: (updatedTitle, updatedDescription) {
-                          _editTask(index, updatedTitle, updatedDescription);
-                        },
-                      ),
+              leading: const Icon(Icons.open_in_new, color: Colors.white),
+              title: const Text('Открыть', style: TextStyle(color: Colors.white)),
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => EditTaskScreen(
+                      title: tasks[index]['title'] ?? '',
+                      description: tasks[index]['description'] ?? '',
+                      onSave: (updatedTitle, updatedDescription) {
+                        _editTask(index, updatedTitle, updatedDescription);
+                      },
                     ),
-                  );
-                },),
+                  ),
+                );
+              },
+            ),
           ],
         ),
       ),
@@ -383,10 +384,11 @@ class MainScreenState extends State<MainScreen> {
                           child: Card(
                             color: Colors.grey[800],
                             child: Center(
-                                child: Text(
-                              filteredTasks[index]['title'] ?? 'Без названия',
-                              style: const TextStyle(color: Colors.white),
-                            ),),
+                              child: Text(
+                                filteredTasks[index]['title'] ?? 'Без названия',
+                                style: const TextStyle(color: Colors.white),
+                              ),
+                            ),
                           ),
                         );
                       },
