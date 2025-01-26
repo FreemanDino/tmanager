@@ -44,7 +44,7 @@ class EditTaskPageState extends State<EditTaskPage> {
         elevation: 0,
         centerTitle: true,
         iconTheme: const IconThemeData(
-          color: Colors.white, // Стрелка "назад" - белая
+          color: Colors.white,
         ),
         title: const MainLogoText(),
       ),
@@ -96,7 +96,8 @@ class EditTaskPageState extends State<EditTaskPage> {
                 style: ElevatedButton.styleFrom(
                   backgroundColor: Colors.white,
                   foregroundColor: Colors.black,
-                  padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 50),
+                  padding:
+                      const EdgeInsets.symmetric(vertical: 20, horizontal: 50),
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(7),
                   ),

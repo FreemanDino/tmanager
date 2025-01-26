@@ -53,7 +53,9 @@ class TaskProvider with ChangeNotifier {
   }
 
   List<TaskModel> searchTasks(String query) {
-    return _tasks.where((task) => task.title.toLowerCase().contains(query.toLowerCase())).toList();
+    return _tasks
+        .where((task) => task.title.toLowerCase().contains(query.toLowerCase()))
+        .toList();
   }
 
   void filterTasks(String query) {

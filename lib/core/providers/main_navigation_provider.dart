@@ -1,6 +1,3 @@
-// Created Date: January 26th 2025
-// Author: Oleg Khmara
-
 import 'package:flutter/material.dart';
 
 class MainNavigationProvider extends ChangeNotifier {

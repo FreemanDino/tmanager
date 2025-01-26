@@ -37,7 +37,21 @@ class MainScreen extends StatelessWidget {
           ? null
           : FloatingActionButton(
               backgroundColor: Colors.white,
-              onPressed: () => _showAddTaskDialog(context),
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => EditTaskScreen(
+                      onSave: (updatedTitle, updatedDescription) {
+                        context.read<TaskProvider>().addTask(
+                              updatedTitle,
+                              updatedDescription,
+                            );
+                      },
+                    ),
+                  ),
+                );
+              },
               child: const Icon(Icons.add, color: Colors.black),
             ),
       bottomNavigationBar: BottomNavigationBar(
@@ -59,120 +73,6 @@ class MainScreen extends StatelessWidget {
           BottomNavigationBarItem(
             icon: Icon(Icons.settings),
             label: 'Настройки',
-          ),
-        ],
-      ),
-    );
-  }
-
-  void _showAddTaskDialog(BuildContext context) {
-    String title = '';
-    String description = '';
-    showDialog(
-      context: context,
-      builder: (context) => AlertDialog(
-        backgroundColor: const Color(0xFF141414),
-        title: const Text(
-          'Добавить задачу',
-          style: TextStyle(
-            color: Colors.white,
-            fontFamily: 'Roboto',
-            fontWeight: FontWeight.normal,
-          ),
-        ),
-        content: TextField(
-          onChanged: (value) {
-            title = value;
-            description = value;
-          },
-          decoration: const InputDecoration(
-            labelText: 'Введите название задачи',
-            labelStyle: TextStyle(
-              color: Colors.grey,
-              fontFamily: 'Roboto',
-              fontWeight: FontWeight.normal,
-            ),
-            enabledBorder: UnderlineInputBorder(
-              borderSide: BorderSide(color: Colors.white),
-            ),
-            focusedBorder: UnderlineInputBorder(
-              borderSide: BorderSide(color: Colors.white),
-            ),
-          ),
-          style: const TextStyle(
-            color: Colors.white,
-            fontFamily: 'Roboto',
-          ),
-          cursorColor: Colors.white,
-        ),
-        actions: [
-          TextButton(
-            onPressed: () {
-              Provider.of<TaskProvider>(context, listen: false)
-                  .addTask(title, description);
-              Navigator.pop(context);
-            },
-            style: ButtonStyle(
-              overlayColor: WidgetStateProperty.resolveWith<Color>(
-                (states) {
-                  if (states.contains(WidgetState.hovered) ||
-                      states.contains(WidgetState.pressed)) {
-                    return Colors.grey;
-                  }
-                  return Colors.transparent;
-                },
-              ),
-            ),
-            child: const Text(
-              'Отмена',
-              style: TextStyle(
-                color: Colors.white,
-                fontFamily: 'Roboto',
-                fontWeight: FontWeight.normal,
-              ),
-            ),
-          ),
-          TextButton(
-            onPressed: () {
-              // context.go(
-              //   '${AppRoutes.editTask.path}?title=$title',
-              // );
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => EditTaskScreen(
-                    onSave: (updatedTitle, updatedDescription) {
-                      context.read<TaskProvider>().addTask(
-                            updatedTitle,
-                            updatedDescription,
-                          );
-                    },
-                  ),
-                ),
-              );
-              // Provider.of<TaskProvider>(context, listen: false)
-              //     .addTask(title, description);
-              // Navigator.pop(context);
-            },
-            style: ButtonStyle(
-              overlayColor: WidgetStateProperty.resolveWith<Color>(
-                (states) {
-                  if (states.contains(WidgetState.hovered) ||
-                      states.contains(WidgetState.pressed)) {
-                    return Colors.grey;
-                  }
-                  return Colors.transparent;
-                },
-              ),
-            ),
-            child: const Text(
-              'Добавить',
-              style: TextStyle(
-                color: Colors.white,
-                fontFamily: 'Roboto',
-                fontWeight: FontWeight.normal,
-              ),
-            ),
           ),
         ],
       ),

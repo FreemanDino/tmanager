@@ -52,7 +52,10 @@ final GoRouter router = GoRouter(
         // final description = state.uri.queryParameters['description'] ?? '';
         final task = state.uri.queryParameters['title'] == null
             ? TaskModel.empty()
-            : TaskModel.fromMap(jsonDecode(state.uri.queryParameters['title']!) as Map<String, dynamic>);
+            : TaskModel.fromMap(
+                jsonDecode(state.uri.queryParameters['title']!)
+                    as Map<String, dynamic>,
+              );
         return EditTaskScreen(
           task: task,
           onSave: (updatedTitle, updatedDescription) {

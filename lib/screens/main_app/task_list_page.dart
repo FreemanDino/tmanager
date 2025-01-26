@@ -17,7 +17,8 @@ class _TaskListPageState extends State<TaskListPage> {
   @override
   void initState() {
     super.initState();
-    final taskProvider = Provider.of<TaskProvider>(context, listen: false)..loadTasks();
+    final taskProvider = Provider.of<TaskProvider>(context, listen: false)
+      ..loadTasks();
     searchController.addListener(() {
       taskProvider.filterTasks(searchController.text);
     });
@@ -38,17 +39,19 @@ class _TaskListPageState extends State<TaskListPage> {
                 style: const TextStyle(color: Colors.white),
                 cursorColor: Colors.white,
                 decoration: InputDecoration(
-                  labelText: 'Поиск задачи',
-                  labelStyle: const TextStyle(color: Colors.white),
+                  hintText: 'Поиск задачи',
+                  hintStyle: const TextStyle(color: Colors.grey),
                   prefixIcon: const Icon(Icons.search, color: Colors.white),
                   border: const OutlineInputBorder(),
                   enabledBorder: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(7),
-                    borderSide: const BorderSide(color: Colors.grey, width: 2.0),
+                    borderSide:
+                        const BorderSide(color: Colors.grey, width: 2.0),
                   ),
                   focusedBorder: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(7),
-                    borderSide: const BorderSide(color: Colors.white, width: 2.0),
+                    borderSide:
+                        const BorderSide(color: Colors.white, width: 2.0),
                   ),
                 ),
               ),
@@ -77,8 +80,6 @@ class _TaskListPageState extends State<TaskListPage> {
             ],
           ),
         ),
-
-        // Task List
         Expanded(
           child: isGridView
               ? GridView.builder(
@@ -94,7 +95,8 @@ class _TaskListPageState extends State<TaskListPage> {
                       borderRadius: BorderRadius.circular(10),
                       child: InkWell(
                         borderRadius: BorderRadius.circular(10),
-                        onTap: () => _showTaskOptions(context, index, tasks[index]),
+                        onTap: () =>
+                            _showTaskOptions(context, index, tasks[index]),
                         child: Center(
                           child: Text(
                             tasks[index].title,
@@ -110,13 +112,21 @@ class _TaskListPageState extends State<TaskListPage> {
                   separatorBuilder: (_, __) => const SizedBox(height: 4),
                   itemBuilder: (context, index) {
                     return ListTile(
-                      onTap: () => _showTaskOptions(context, index, tasks[index]),
+                      onTap: () =>
+                          _showTaskOptions(context, index, tasks[index]),
                       tileColor: Colors.white10,
                       title: Text(
                         tasks[index].title,
                         style: const TextStyle(color: Colors.white),
                       ),
-                      trailing: IconButton(onPressed: () {}, icon: const Icon(Icons.clear)),
+                      trailing: IconButton(
+                        onPressed: () {
+                          Navigator.pop(context);
+                          Provider.of<TaskProvider>(context, listen: false)
+                              .deleteTask(task); // Определить task
+                        },
+                        icon: const Icon(Icons.clear),
+                      ),
                     );
                   },
                 ),
@@ -135,7 +145,10 @@ class _TaskListPageState extends State<TaskListPage> {
           children: [
             ListTile(
               leading: const Icon(Icons.edit, color: Colors.white),
-              title: const Text('Переименовать', style: TextStyle(color: Colors.white)),
+              title: const Text(
+                'Переименовать',
+                style: TextStyle(color: Colors.white),
+              ),
               onTap: () {
                 Navigator.pop(context);
                 _showEditTaskDialog(context, task);
@@ -143,10 +156,12 @@ class _TaskListPageState extends State<TaskListPage> {
             ),
             ListTile(
               leading: const Icon(Icons.delete, color: Colors.white),
-              title: const Text('Удалить', style: TextStyle(color: Colors.white)),
+              title:
+                  const Text('Удалить', style: TextStyle(color: Colors.white)),
               onTap: () {
                 Navigator.pop(context);
-                Provider.of<TaskProvider>(context, listen: false).deleteTask(task);
+                Provider.of<TaskProvider>(context, listen: false)
+                    .deleteTask(task);
               },
             ),
           ],
@@ -157,9 +172,7 @@ class _TaskListPageState extends State<TaskListPage> {
 
   void _showEditTaskDialog(BuildContext context, TaskModel task) {
     String updatedTitle = task.title;
-    String updatedDescription = task.description;
     final titleController = TextEditingController(text: updatedTitle);
-    final descriptionController = TextEditingController(text: updatedDescription);
 
     showDialog(
       context: context,
@@ -175,15 +188,10 @@ class _TaskListPageState extends State<TaskListPage> {
             TextField(
               controller: titleController,
               onChanged: (value) => updatedTitle = value,
-              decoration:
-                  const InputDecoration(labelText: 'Название задачи', labelStyle: TextStyle(color: Colors.grey)),
-              style: const TextStyle(color: Colors.white),
-            ),
-            TextField(
-              controller: descriptionController,
-              onChanged: (value) => updatedDescription = value,
-              decoration:
-                  const InputDecoration(labelText: 'Описание задачи', labelStyle: TextStyle(color: Colors.grey)),
+              decoration: const InputDecoration(
+                labelText: 'Название задачи',
+                labelStyle: TextStyle(color: Colors.grey),
+              ),
               style: const TextStyle(color: Colors.white),
             ),
           ],
@@ -195,10 +203,12 @@ class _TaskListPageState extends State<TaskListPage> {
           ),
           TextButton(
             onPressed: () {
-              Provider.of<TaskProvider>(context, listen: false).updateTask(task);
+              Provider.of<TaskProvider>(context, listen: false)
+                  .updateTask(task);
               Navigator.pop(context);
             },
-            child: const Text('Сохранить', style: TextStyle(color: Colors.white)),
+            child:
+                const Text('Сохранить', style: TextStyle(color: Colors.white)),
           ),
         ],
       ),

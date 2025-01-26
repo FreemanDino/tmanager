@@ -30,7 +30,8 @@ class EditTaskScreenState extends State<EditTaskScreen> {
     super.initState();
     _editedTask = widget.task ?? TaskModel.empty();
     _titleController = TextEditingController(text: _editedTask.title);
-    _descriptionController = TextEditingController(text: _editedTask.description);
+    _descriptionController =
+        TextEditingController(text: _editedTask.description);
   }
 
   @override
@@ -100,7 +101,8 @@ class EditTaskScreenState extends State<EditTaskScreen> {
                 style: ElevatedButton.styleFrom(
                   backgroundColor: Colors.white,
                   foregroundColor: Colors.black,
-                  padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 50),
+                  padding:
+                      const EdgeInsets.symmetric(vertical: 20, horizontal: 50),
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(7),
                   ),

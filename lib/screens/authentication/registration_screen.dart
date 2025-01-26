@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
+import 'package:tmanager/core/routers/app_routers.dart';
 import 'package:tmanager/screens/authentication/first_login_screen.dart';
 import '../../core/providers/user_provider.dart';
 
@@ -32,7 +33,9 @@ class RegistrationScreenState extends State<RegistrationScreen> {
                 onPressed: () {
                   Navigator.pushReplacement(
                     context,
-                    MaterialPageRoute(builder: (context) => const FirstLoginScreen()),
+                    MaterialPageRoute(
+                      builder: (context) => const FirstLoginScreen(),
+                    ),
                   );
                 },
               ),
@@ -73,11 +76,13 @@ class RegistrationScreenState extends State<RegistrationScreen> {
                   border: const OutlineInputBorder(),
                   enabledBorder: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(7),
-                    borderSide: const BorderSide(color: Colors.grey, width: 2.0),
+                    borderSide:
+                        const BorderSide(color: Colors.grey, width: 2.0),
                   ),
                   focusedBorder: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(7),
-                    borderSide: const BorderSide(color: Colors.white, width: 2.0),
+                    borderSide:
+                        const BorderSide(color: Colors.white, width: 2.0),
                   ),
                   prefixIcon: const Icon(Icons.email, color: Colors.white),
                 ),
@@ -94,11 +99,13 @@ class RegistrationScreenState extends State<RegistrationScreen> {
                   border: const OutlineInputBorder(),
                   enabledBorder: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(7),
-                    borderSide: const BorderSide(color: Colors.grey, width: 2.0),
+                    borderSide:
+                        const BorderSide(color: Colors.grey, width: 2.0),
                   ),
                   focusedBorder: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(7),
-                    borderSide: const BorderSide(color: Colors.white, width: 2.0),
+                    borderSide:
+                        const BorderSide(color: Colors.white, width: 2.0),
                   ),
                   prefixIcon: const Icon(Icons.lock, color: Colors.white),
                 ),
@@ -111,15 +118,20 @@ class RegistrationScreenState extends State<RegistrationScreen> {
                 obscureText: true,
                 decoration: InputDecoration(
                   labelText: 'Подтверждение пароля',
-                  labelStyle: const TextStyle(fontFamily: 'Roboto', color: Colors.white),
+                  labelStyle: const TextStyle(
+                    fontFamily: 'Roboto',
+                    color: Colors.white,
+                  ),
                   border: const OutlineInputBorder(),
                   enabledBorder: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(7),
-                    borderSide: const BorderSide(color: Colors.grey, width: 2.0),
+                    borderSide:
+                        const BorderSide(color: Colors.grey, width: 2.0),
                   ),
                   focusedBorder: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(7),
-                    borderSide: const BorderSide(color: Colors.white, width: 2.0),
+                    borderSide:
+                        const BorderSide(color: Colors.white, width: 2.0),
                   ),
                   prefixIcon: const Icon(Icons.lock, color: Colors.white),
                 ),
@@ -131,23 +143,32 @@ class RegistrationScreenState extends State<RegistrationScreen> {
                       _passwordController.text.isEmpty ||
                       _confirmPasswordController.text.isEmpty) {
                     ScaffoldMessenger.of(context).showSnackBar(
-                      const SnackBar(content: Text('Пожалуйста, заполните все поля')),
+                      const SnackBar(
+                        content: Text('Пожалуйста, заполните все поля'),
+                      ),
                     );
                     return;
                   }
                   if (!_emailRegex.hasMatch(_emailController.text)) {
                     ScaffoldMessenger.of(context).showSnackBar(
-                      const SnackBar(content: Text('Неверный формат электронной почты')),
+                      const SnackBar(
+                        content: Text('Неверный формат электронной почты'),
+                      ),
                     );
                     return;
                   }
                   if (_passwordController.text.length < 6) {
                     ScaffoldMessenger.of(context).showSnackBar(
-                      const SnackBar(content: Text('Пароль должен содержать минимум 6 символов')),
+                      const SnackBar(
+                        content: Text(
+                          'Пароль должен содержать минимум 6 символов',
+                        ),
+                      ),
                     );
                     return;
                   }
-                  if (_passwordController.text != _confirmPasswordController.text) {
+                  if (_passwordController.text !=
+                      _confirmPasswordController.text) {
                     ScaffoldMessenger.of(context).showSnackBar(
                       const SnackBar(content: Text('Пароли не совпадают')),
                     );
@@ -156,13 +177,14 @@ class RegistrationScreenState extends State<RegistrationScreen> {
                           email: _emailController.text,
                           password: _confirmPasswordController.text,
                         );
-                    context.go('/verification');
+                    context.go(AppRoutes.verification.path);
                   }
                 },
                 style: ElevatedButton.styleFrom(
                   backgroundColor: Colors.white,
                   foregroundColor: Colors.black,
-                  padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 50),
+                  padding:
+                      const EdgeInsets.symmetric(vertical: 20, horizontal: 50),
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(7),
                   ),

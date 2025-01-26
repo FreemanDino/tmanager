@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:tmanager/core/routers/app_routers.dart';
 import 'package:tmanager/core/service/user_service.dart';
 
 class VerificationScreen extends StatefulWidget {
@@ -15,7 +16,7 @@ class VerificationScreenState extends State<VerificationScreen> {
     if (_codeController.text == _generatedCode) {
       await UserService.instance.verifyUser();
       if (mounted) {
-        context.go('/home');
+        context.go(AppRoutes.home.path);
       }
     } else {
       ScaffoldMessenger.of(context).showSnackBar(
@@ -37,7 +38,7 @@ class VerificationScreenState extends State<VerificationScreen> {
               IconButton(
                 icon: const Icon(Icons.arrow_back, color: Colors.white),
                 onPressed: () {
-                  context.go('/register');
+                  context.go(AppRoutes.register.path);
                 },
               ),
               const SizedBox(height: 20),
@@ -78,11 +79,13 @@ class VerificationScreenState extends State<VerificationScreen> {
                   border: const OutlineInputBorder(),
                   enabledBorder: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(7),
-                    borderSide: const BorderSide(color: Colors.grey, width: 2.0),
+                    borderSide:
+                        const BorderSide(color: Colors.grey, width: 2.0),
                   ),
                   focusedBorder: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(7),
-                    borderSide: const BorderSide(color: Colors.white, width: 2.0),
+                    borderSide:
+                        const BorderSide(color: Colors.white, width: 2.0),
                   ),
                   prefixIcon: const Icon(Icons.email, color: Colors.white),
                 ),
@@ -93,7 +96,8 @@ class VerificationScreenState extends State<VerificationScreen> {
                 style: ElevatedButton.styleFrom(
                   backgroundColor: Colors.white,
                   foregroundColor: Colors.black,
-                  padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 50),
+                  padding:
+                      const EdgeInsets.symmetric(vertical: 20, horizontal: 50),
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(7),
                   ),
