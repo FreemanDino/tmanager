@@ -111,6 +111,7 @@ class _TaskListPageState extends State<TaskListPage> {
                   itemCount: tasks.length,
                   separatorBuilder: (_, __) => const SizedBox(height: 4),
                   itemBuilder: (context, index) {
+                    final TaskModel task = tasks[index];
                     return ListTile(
                       onTap: () =>
                           _showTaskOptions(context, index, tasks[index]),
@@ -121,9 +122,8 @@ class _TaskListPageState extends State<TaskListPage> {
                       ),
                       trailing: IconButton(
                         onPressed: () {
-                          Navigator.pop(context);
                           Provider.of<TaskProvider>(context, listen: false)
-                              .deleteTask(task); // Определить task
+                              .deleteTask(task);
                         },
                         icon: const Icon(Icons.clear),
                       ),
