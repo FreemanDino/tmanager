@@ -4,13 +4,13 @@ import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 import 'package:tmanager/core/models/task_model.dart';
 import 'package:tmanager/core/providers/task_provider.dart';
+import 'package:tmanager/screens/start/login_screen.dart';
 import 'package:tmanager/screens/user_interface/edit_task_screen.dart';
 import 'package:tmanager/screens/user_interface/profile_screen.dart';
-import 'package:tmanager/screens/start/login_screen.dart';
-import '../../screens/user_interface/home_screen.dart';
 import '../../screens/start/register_screen.dart';
 import '../../screens/start/splash_screen.dart';
 import '../../screens/start/verify_screen.dart';
+import '../../screens/user_interface/home_screen.dart';
 import 'app_routers.dart';
 
 final GoRouter router = GoRouter(
