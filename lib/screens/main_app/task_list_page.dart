@@ -159,7 +159,7 @@ class _TaskListPageState extends State<TaskListPage> {
                           ),
                         );
                       },
-                      tileColor: Colors.white10,
+                      tileColor: const Color(0xFF141414),
                       title: Text(
                         tasks[index].title,
                         style: const TextStyle(color: Colors.white),
@@ -169,93 +169,13 @@ class _TaskListPageState extends State<TaskListPage> {
                           Provider.of<TaskProvider>(context, listen: false)
                               .deleteTask(task);
                         },
-                        icon: const Icon(Icons.clear),
+                        icon: const Icon(Icons.delete, color: Colors.white),
                       ),
                     );
                   },
                 ),
         ),
       ],
-    );
-  }
-
-  void _showTaskOptions(BuildContext context, int index, TaskModel task) {
-    showModalBottomSheet(
-      context: context,
-      builder: (context) => Container(
-        color: Colors.black,
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            ListTile(
-              leading: const Icon(Icons.edit, color: Colors.white),
-              title: const Text(
-                'Переименовать',
-                style: TextStyle(color: Colors.white),
-              ),
-              onTap: () {
-                Navigator.pop(context);
-                _showEditTaskDialog(context, task);
-              },
-            ),
-            ListTile(
-              leading: const Icon(Icons.delete, color: Colors.white),
-              title:
-                  const Text('Удалить', style: TextStyle(color: Colors.white)),
-              onTap: () {
-                Navigator.pop(context);
-                Provider.of<TaskProvider>(context, listen: false)
-                    .deleteTask(task);
-              },
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-
-  void _showEditTaskDialog(BuildContext context, TaskModel task) {
-    String updatedTitle = task.title;
-    final titleController = TextEditingController(text: updatedTitle);
-
-    showDialog(
-      context: context,
-      builder: (context) => AlertDialog(
-        backgroundColor: const Color(0xFF141414),
-        title: const Text(
-          'Переименовать задачу',
-          style: TextStyle(color: Colors.white),
-        ),
-        content: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            TextField(
-              controller: titleController,
-              onChanged: (value) => updatedTitle = value,
-              decoration: const InputDecoration(
-                labelText: 'Название задачи',
-                labelStyle: TextStyle(color: Colors.grey),
-              ),
-              style: const TextStyle(color: Colors.white),
-            ),
-          ],
-        ),
-        actions: [
-          TextButton(
-            onPressed: () => Navigator.pop(context),
-            child: const Text('Отмена', style: TextStyle(color: Colors.white)),
-          ),
-          TextButton(
-            onPressed: () {
-              Provider.of<TaskProvider>(context, listen: false)
-                  .updateTask(task);
-              Navigator.pop(context);
-            },
-            child:
-                const Text('Сохранить', style: TextStyle(color: Colors.white)),
-          ),
-        ],
-      ),
     );
   }
 }

@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 // import 'package:provider/provider.dart';
 import 'package:tmanager/core/models/task_model.dart';
+import 'package:tmanager/core/providers/task_provider.dart';
 // import 'package:tmanager/core/providers/task_provider.dart';
 import 'package:tmanager/screens/main_app/widgets/main_logo_text.dart';
 
@@ -24,6 +26,7 @@ class EditTaskScreenState extends State<EditTaskScreen> {
   late TextEditingController _titleController;
   late TextEditingController _descriptionController;
   late TaskModel _editedTask;
+  String? _errorMessage;
 
   @override
   void initState() {
@@ -32,6 +35,7 @@ class EditTaskScreenState extends State<EditTaskScreen> {
     _titleController = TextEditingController(text: _editedTask.title);
     _descriptionController =
         TextEditingController(text: _editedTask.description);
+    _errorMessage = null;
   }
 
   @override
@@ -39,6 +43,40 @@ class EditTaskScreenState extends State<EditTaskScreen> {
     _titleController.dispose();
     _descriptionController.dispose();
     super.dispose();
+  }
+
+  void _validateAndSave() {
+    final title = _titleController.text.trim();
+    final description = _descriptionController.text.trim();
+
+    if (title.isEmpty || description.isEmpty) {
+      setState(() {
+        _errorMessage = 'Название и/или описание не могут быть пустыми.';
+      });
+      return;
+    }
+
+    // Check for duplicates (only for new tasks or if the title/description has changed)
+    if (widget.isNew ||
+        title != widget.task?.title ||
+        description != widget.task?.description) {
+      final isDuplicate = context.read<TaskProvider>().isTaskDuplicate(
+            title,
+            description,
+          );
+
+      if (isDuplicate) {
+        setState(() {
+          _errorMessage =
+              'Задача с таким названием и/или описанием уже существует.';
+        });
+        return;
+      }
+    }
+
+    // If no errors, save the task
+    widget.onSave(title, description);
+    Navigator.pop(context);
   }
 
   @override
@@ -95,6 +133,14 @@ class EditTaskScreenState extends State<EditTaskScreen> {
                 ),
               ),
             ),
+            if (_errorMessage != null)
+              Padding(
+                padding: const EdgeInsets.only(top: 10),
+                child: Text(
+                  _errorMessage!,
+                  style: const TextStyle(color: Colors.red),
+                ),
+              ),
             const SizedBox(height: 20),
             Center(
               child: ElevatedButton(
@@ -107,17 +153,7 @@ class EditTaskScreenState extends State<EditTaskScreen> {
                     borderRadius: BorderRadius.circular(7),
                   ),
                 ),
-                onPressed: () {
-                  widget.onSave(
-                    _titleController.text,
-                    _descriptionController.text,
-                  );
-
-                  // context.read<TaskProvider>().saveTask(_editedTask);
-
-                  // context.go(AppRoutes.home.path);
-                  Navigator.pop(context);
-                },
+                onPressed: _validateAndSave,
                 child: const Text(
                   'Сохранить',
                   style: TextStyle(

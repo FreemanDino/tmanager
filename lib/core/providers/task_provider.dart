@@ -68,4 +68,9 @@ class TaskProvider with ChangeNotifier {
     }
     notifyListeners();
   }
+
+  bool isTaskDuplicate(String title, String description) {
+    return _tasks
+        .any((task) => task.title == title || task.description == description);
+  }
 }
