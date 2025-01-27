@@ -9,6 +9,8 @@ class UserProvider with ChangeNotifier {
 
   UserModel get user => _user;
 
+  bool get isLogged => _user.email != null && _user.password != null;
+
   Future<void> init() async {
     _user = await _userService.loadLogin();
     notifyListeners();

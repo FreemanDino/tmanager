@@ -51,8 +51,7 @@ final GoRouter router = GoRouter(
         final task = state.uri.queryParameters['title'] == null
             ? TaskModel.empty()
             : TaskModel.fromMap(
-                jsonDecode(state.uri.queryParameters['title']!)
-                    as Map<String, dynamic>,
+                jsonDecode(state.uri.queryParameters['title']!) as Map<String, dynamic>,
               );
         return EditTaskScreen(
           task: task,
@@ -66,24 +65,18 @@ final GoRouter router = GoRouter(
   ],
   redirect: (BuildContext context, GoRouterState state) {
     final userProvider = Provider.of<UserProvider>(context, listen: false);
-    final isLoggedIn =
-        userProvider.user.email != null && userProvider.user.password != null;
+    final isLoggedIn = userProvider.isLogged;
 
     final isLoginRoute = state.uri.path == AppRoutes.login.path;
     final isRegisterRoute = state.uri.path == AppRoutes.register.path;
     final isVerificationRoute = state.uri.path == AppRoutes.verification.path;
     final isRootRoute = state.uri.path == AppRoutes.root.path;
 
-    if (!isLoggedIn &&
-        !isLoginRoute &&
-        !isRegisterRoute &&
-        !isVerificationRoute &&
-        !isRootRoute) {
+    if (!isLoggedIn && !isLoginRoute && !isRegisterRoute && !isVerificationRoute && !isRootRoute) {
       return AppRoutes.login.path;
     }
 
-    if (isLoggedIn &&
-        (isLoginRoute || isRegisterRoute || isVerificationRoute)) {
+    if (isLoggedIn && (isLoginRoute || isRegisterRoute || isVerificationRoute)) {
       return AppRoutes.home.path;
     }
 
