@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 import 'package:tmanager/core/models/task_model.dart';
 import 'package:tmanager/core/providers/navigation_provider.dart';
@@ -76,10 +77,10 @@ class HomeScreen extends StatelessWidget {
             case 0:
               break;
             case 1:
-              Navigator.pushNamed(context, AppRoutes.profile.path);
+              context.go(AppRoutes.profile.path);
               break;
             case 2:
-              Navigator.pushNamed(context, AppRoutes.settings.path);
+              context.go(AppRoutes.settings.path);
               break;
           }
         },
