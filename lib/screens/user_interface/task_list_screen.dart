@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:tmanager/core/models/task_model.dart';
 import 'package:tmanager/core/providers/task_provider.dart';
-import 'package:tmanager/screens/main_app/edit_task_screen.dart';
+import 'package:tmanager/screens/user_interface/edit_task_screen.dart';
 
 class TaskListScreen extends StatefulWidget {
   const TaskListScreen({super.key});

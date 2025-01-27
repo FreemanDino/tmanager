@@ -3,15 +3,15 @@ import 'package:provider/provider.dart';
 import 'package:tmanager/core/models/task_model.dart';
 import 'package:tmanager/core/providers/navigation_provider.dart';
 import 'package:tmanager/core/providers/task_provider.dart';
-import 'package:tmanager/screens/main_app/edit_task_screen.dart';
-import 'package:tmanager/screens/main_app/widgets/main_logo_text.dart';
+import 'package:tmanager/screens/user_interface/edit_task_screen.dart';
+import 'package:tmanager/screens/user_interface/widgets/home_logo_text.dart';
 import 'package:uuid/uuid.dart';
 import 'profile_screen.dart';
 import 'settings_screen.dart';
 import 'task_list_screen.dart';
 
-class MainScreen extends StatelessWidget {
-  const MainScreen({super.key});
+class HomeScreen extends StatelessWidget {
+  const HomeScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -22,7 +22,7 @@ class MainScreen extends StatelessWidget {
         backgroundColor: Colors.black,
         elevation: 0,
         centerTitle: true,
-        title: const MainLogoText(),
+        title: const HomeLogoText(),
       ),
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 16.0),

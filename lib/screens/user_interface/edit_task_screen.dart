@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:tmanager/core/models/task_model.dart';
 import 'package:tmanager/core/providers/task_provider.dart';
-import 'package:tmanager/screens/main_app/widgets/main_logo_text.dart';
+import 'package:tmanager/screens/user_interface/widgets/home_logo_text.dart';
 
 class EditTaskScreen extends StatefulWidget {
   final TaskModel? task;
@@ -85,7 +85,7 @@ class EditTaskScreenState extends State<EditTaskScreen> {
         iconTheme: const IconThemeData(
           color: Colors.white,
         ),
-        title: const MainLogoText(),
+        title: const HomeLogoText(),
       ),
       backgroundColor: Colors.black,
       body: Padding(
