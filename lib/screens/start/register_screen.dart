@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 import 'package:tmanager/core/routers/app_routers.dart';
-import 'package:tmanager/screens/start/login_screen.dart';
 import '../../core/providers/user_provider.dart';
 
 class RegistrationScreen extends StatefulWidget {
@@ -31,12 +30,7 @@ class RegistrationScreenState extends State<RegistrationScreen> {
               IconButton(
                 icon: const Icon(Icons.arrow_back, color: Colors.white),
                 onPressed: () {
-                  Navigator.pushReplacement(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => const FirstLoginScreen(),
-                    ),
-                  );
+                  context.go(AppRoutes.login.path);
                 },
               ),
               const SizedBox(height: 20),

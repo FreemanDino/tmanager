@@ -4,6 +4,7 @@ import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 import 'package:tmanager/core/models/task_model.dart';
 import 'package:tmanager/core/providers/task_provider.dart';
+import 'package:tmanager/core/providers/user_provider.dart';
 import 'package:tmanager/screens/start/login_screen.dart';
 import 'package:tmanager/screens/user_interface/edit_task_screen.dart';
 import 'package:tmanager/screens/user_interface/profile_screen.dart';
@@ -63,4 +64,29 @@ final GoRouter router = GoRouter(
       },
     ),
   ],
+  redirect: (BuildContext context, GoRouterState state) {
+    final userProvider = Provider.of<UserProvider>(context, listen: false);
+    final isLoggedIn =
+        userProvider.user.email != null && userProvider.user.password != null;
+
+    final isLoginRoute = state.uri.path == AppRoutes.login.path;
+    final isRegisterRoute = state.uri.path == AppRoutes.register.path;
+    final isVerificationRoute = state.uri.path == AppRoutes.verification.path;
+    final isRootRoute = state.uri.path == AppRoutes.root.path;
+
+    if (!isLoggedIn &&
+        !isLoginRoute &&
+        !isRegisterRoute &&
+        !isVerificationRoute &&
+        !isRootRoute) {
+      return AppRoutes.login.path;
+    }
+
+    if (isLoggedIn &&
+        (isLoginRoute || isRegisterRoute || isVerificationRoute)) {
+      return AppRoutes.home.path;
+    }
+
+    return null;
+  },
 );
