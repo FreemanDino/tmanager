@@ -2,7 +2,6 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:tmanager/core/models/user_model.dart';
 
 class UserService {
-  // singleton
   static final UserService instance = UserService._internal();
 
   factory UserService() => instance;

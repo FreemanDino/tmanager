@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-// import 'package:provider/provider.dart';
 import 'package:tmanager/core/models/task_model.dart';
 import 'package:tmanager/core/providers/task_provider.dart';
-// import 'package:tmanager/core/providers/task_provider.dart';
 import 'package:tmanager/screens/main_app/widgets/main_logo_text.dart';
 
 class EditTaskScreen extends StatefulWidget {
@@ -56,7 +54,6 @@ class EditTaskScreenState extends State<EditTaskScreen> {
       return;
     }
 
-    // Check for duplicates (only for new tasks or if the title/description has changed)
     if (widget.isNew ||
         title != widget.task?.title ||
         description != widget.task?.description) {
@@ -74,7 +71,6 @@ class EditTaskScreenState extends State<EditTaskScreen> {
       }
     }
 
-    // If no errors, save the task
     widget.onSave(title, description);
     Navigator.pop(context);
   }

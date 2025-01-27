@@ -3,12 +3,11 @@ import 'package:provider/provider.dart';
 
 import '../../core/providers/user_provider.dart';
 
-class ProfilePage extends StatelessWidget {
-  const ProfilePage({super.key});
+class ProfileScreen extends StatelessWidget {
+  const ProfileScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
-    // final provider = context.read<UserProvider>();
     final user = context.select((UserProvider p) => p.user);
     final GlobalKey<FormState> formKey = GlobalKey<FormState>();
     final emailController = TextEditingController();

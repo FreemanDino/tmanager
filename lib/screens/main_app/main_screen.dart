@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:tmanager/core/models/task_model.dart';
-import 'package:tmanager/core/providers/main_navigation_provider.dart';
+import 'package:tmanager/core/providers/navigation_provider.dart';
 import 'package:tmanager/core/providers/task_provider.dart';
 import 'package:tmanager/screens/main_app/edit_task_screen.dart';
 import 'package:tmanager/screens/main_app/widgets/main_logo_text.dart';
 import 'package:uuid/uuid.dart';
-import 'profile_page.dart';
-import 'setting_page.dart';
-import 'task_list_page.dart';
+import 'profile_screen.dart';
+import 'settings_screen.dart';
+import 'task_list_screen.dart';
 
 class MainScreen extends StatelessWidget {
   const MainScreen({super.key});
@@ -29,9 +29,9 @@ class MainScreen extends StatelessWidget {
         child: IndexedStack(
           index: index,
           children: const [
-            TaskListPage(),
-            ProfilePage(),
-            SettingPage(),
+            TaskListScreen(),
+            ProfileScreen(),
+            SettingsScreen(),
           ],
         ),
       ),
@@ -44,8 +44,8 @@ class MainScreen extends StatelessWidget {
                   context,
                   MaterialPageRoute(
                     builder: (context) => EditTaskScreen(
-                      task: null, // No task means it's a new task
-                      isNew: true, // Set isNew to true
+                      task: null,
+                      isNew: true,
                       onSave: (title, description) {
                         final newTask = TaskModel(
                           id: const Uuid().v4(),

@@ -1,17 +1,16 @@
 import 'dart:convert';
-
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 import 'package:tmanager/core/models/task_model.dart';
 import 'package:tmanager/core/providers/task_provider.dart';
-import 'package:tmanager/screens/authentication/first_login_screen.dart';
 import 'package:tmanager/screens/main_app/edit_task_screen.dart';
-import 'package:tmanager/screens/main_app/profile_page.dart';
-import '../../screens/authentication/registration_screen.dart';
-import '../../screens/authentication/verification_screen.dart';
+import 'package:tmanager/screens/main_app/profile_screen.dart';
+import 'package:tmanager/screens/start/login_screen.dart';
 import '../../screens/main_app/main_screen.dart';
-import '../../splash_screen.dart';
+import '../../screens/start/register_screen.dart';
+import '../../screens/start/splash_screen.dart';
+import '../../screens/start/verify_screen.dart';
 import 'app_routers.dart';
 
 final GoRouter router = GoRouter(
@@ -39,7 +38,7 @@ final GoRouter router = GoRouter(
     ),
     GoRoute(
       path: AppRoutes.profile.path,
-      builder: (context, state) => const ProfilePage(),
+      builder: (context, state) => const ProfileScreen(),
     ),
     GoRoute(
       path: AppRoutes.settings.path,
@@ -48,8 +47,6 @@ final GoRouter router = GoRouter(
     GoRoute(
       path: AppRoutes.editTask.path,
       builder: (context, state) {
-        // final title = state.uri.queryParameters['title'] ?? '';
-        // final description = state.uri.queryParameters['description'] ?? '';
         final task = state.uri.queryParameters['title'] == null
             ? TaskModel.empty()
             : TaskModel.fromMap(
