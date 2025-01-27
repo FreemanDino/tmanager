@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
+// import 'package:provider/provider.dart';
 import 'package:tmanager/core/models/task_model.dart';
-import 'package:tmanager/core/providers/task_provider.dart';
+// import 'package:tmanager/core/providers/task_provider.dart';
 import 'package:tmanager/screens/main_app/widgets/main_logo_text.dart';
 
 class EditTaskScreen extends StatefulWidget {
@@ -113,7 +113,7 @@ class EditTaskScreenState extends State<EditTaskScreen> {
                     _descriptionController.text,
                   );
 
-                  context.read<TaskProvider>().saveTask(_editedTask);
+                  // context.read<TaskProvider>().saveTask(_editedTask);
 
                   // context.go(AppRoutes.home.path);
                   Navigator.pop(context);

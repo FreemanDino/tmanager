@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:tmanager/core/models/task_model.dart';
 import 'package:tmanager/core/providers/task_provider.dart';
+import 'package:tmanager/screens/main_app/edit_task_screen.dart';
 
 class TaskListPage extends StatefulWidget {
   const TaskListPage({super.key});
@@ -95,8 +96,22 @@ class _TaskListPageState extends State<TaskListPage> {
                       borderRadius: BorderRadius.circular(10),
                       child: InkWell(
                         borderRadius: BorderRadius.circular(10),
-                        onTap: () =>
-                            _showTaskOptions(context, index, tasks[index]),
+                        onTap: () {
+                          // Navigator.push(
+                          //   context,
+                          //   MaterialPageRoute(
+                          //     builder: (context) => EditTaskScreen(
+                          //       // Открыть существующую задачу
+                          //     builder: (context) => EditTaskScreen(
+                          //       title: tasks[index]['title'] ?? '',
+                          //       description: tasks[index]['description'] ?? '',
+                          //       onSave: (updatedTitle, updatedDescription) {
+                          //         _editTask(index, updatedTitle, updatedDescription);
+                          //       },
+                          //     ),                                                           // Как было реализовано в прошлом
+                          //   ),
+                          // );
+                        },
                         child: Center(
                           child: Text(
                             tasks[index].title,
@@ -113,8 +128,15 @@ class _TaskListPageState extends State<TaskListPage> {
                   itemBuilder: (context, index) {
                     final TaskModel task = tasks[index];
                     return ListTile(
-                      onTap: () =>
-                          _showTaskOptions(context, index, tasks[index]),
+                      onTap: () {
+                        // Navigator.push(
+                        //   context,
+                        //   MaterialPageRoute(
+                        //     builder: (context) => EditTaskScreen(
+                        //       // Открыть существующую задачу
+                        //   ),
+                        // );
+                      },
                       tileColor: Colors.white10,
                       title: Text(
                         tasks[index].title,
