@@ -3,6 +3,7 @@ import 'package:provider/provider.dart';
 import 'package:tmanager/core/models/task_model.dart';
 import 'package:tmanager/core/providers/navigation_provider.dart';
 import 'package:tmanager/core/providers/task_provider.dart';
+import 'package:tmanager/core/routers/app_routers.dart';
 import 'package:tmanager/screens/user_interface/edit_task_screen.dart';
 import 'package:tmanager/screens/user_interface/widgets/home_logo_text.dart';
 import 'package:uuid/uuid.dart';
@@ -69,8 +70,19 @@ class HomeScreen extends StatelessWidget {
         selectedItemColor: Colors.red,
         unselectedItemColor: Colors.white,
         currentIndex: index,
-        onTap: (index) =>
-            context.read<MainNavigationProvider>().setCurrentIndex(index),
+        onTap: (index) {
+          context.read<MainNavigationProvider>().setCurrentIndex(index);
+          switch (index) {
+            case 0:
+              break;
+            case 1:
+              Navigator.pushNamed(context, AppRoutes.profile.path);
+              break;
+            case 2:
+              Navigator.pushNamed(context, AppRoutes.settings.path);
+              break;
+          }
+        },
         items: const [
           BottomNavigationBarItem(
             icon: Icon(Icons.home),
