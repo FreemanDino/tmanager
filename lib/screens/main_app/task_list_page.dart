@@ -91,26 +91,34 @@ class _TaskListPageState extends State<TaskListPage> {
                   ),
                   itemCount: tasks.length,
                   itemBuilder: (context, index) {
+                    final TaskModel task = tasks[index];
                     return Material(
                       color: Colors.white10,
                       borderRadius: BorderRadius.circular(10),
                       child: InkWell(
                         borderRadius: BorderRadius.circular(10),
                         onTap: () {
-                          // Navigator.push(
-                          //   context,
-                          //   MaterialPageRoute(
-                          //     builder: (context) => EditTaskScreen(
-                          //       // Открыть существующую задачу
-                          //     builder: (context) => EditTaskScreen(
-                          //       title: tasks[index]['title'] ?? '',
-                          //       description: tasks[index]['description'] ?? '',
-                          //       onSave: (updatedTitle, updatedDescription) {
-                          //         _editTask(index, updatedTitle, updatedDescription);
-                          //       },
-                          //     ),                                                           // Как было реализовано в прошлом
-                          //   ),
-                          // );
+                          // Реализация открытия существующей задачи
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => EditTaskScreen(
+                                task: task, // Pass the existing task
+                                onSave: (updatedTitle, updatedDescription) {
+                                  // Update the task in the provider
+                                  final updatedTask = TaskModel(
+                                    id: task.id, // Keep the same ID
+                                    title: updatedTitle,
+                                    description: updatedDescription,
+                                  );
+                                  Provider.of<TaskProvider>(
+                                    context,
+                                    listen: false,
+                                  ).updateTask(updatedTask);
+                                },
+                              ),
+                            ),
+                          );
                         },
                         child: Center(
                           child: Text(
@@ -129,13 +137,27 @@ class _TaskListPageState extends State<TaskListPage> {
                     final TaskModel task = tasks[index];
                     return ListTile(
                       onTap: () {
-                        // Navigator.push(
-                        //   context,
-                        //   MaterialPageRoute(
-                        //     builder: (context) => EditTaskScreen(
-                        //       // Открыть существующую задачу
-                        //   ),
-                        // );
+                        // Реализация открытия существующей задачи
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => EditTaskScreen(
+                              task: task, // Pass the existing task
+                              onSave: (updatedTitle, updatedDescription) {
+                                // Update the task in the provider
+                                final updatedTask = TaskModel(
+                                  id: task.id, // Keep the same ID
+                                  title: updatedTitle,
+                                  description: updatedDescription,
+                                );
+                                Provider.of<TaskProvider>(
+                                  context,
+                                  listen: false,
+                                ).updateTask(updatedTask);
+                              },
+                            ),
+                          ),
+                        );
                       },
                       tileColor: Colors.white10,
                       title: Text(
