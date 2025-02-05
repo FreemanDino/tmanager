@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "14438509782",
+    "project_id": "tmanager-78c5a",
+    "storage_bucket": "tmanager-78c5a.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:14438509782:android:971040f4de6bc6398dad77",
+        "android_client_info": {
+          "package_name": "com.tmanager.tmanager"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAfGD7p6vK8vpRRr4Qmhh3DkHV78ym5wb8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -8,6 +8,7 @@ class TaskProvider with ChangeNotifier {
 
   List<TaskModel> _tasks = [];
   List<TaskModel> get tasks => _tasks;
+
   List<TaskModel> _filteredTasks = [];
   List<TaskModel> get filteredTasks => _filteredTasks;
 
@@ -20,9 +21,9 @@ class TaskProvider with ChangeNotifier {
   Future<void> saveTask(TaskModel task) async {
     if (task.id == null) {
       await addTask(task.title, task.description);
-      return;
+    } else {
+      await updateTask(task);
     }
-    await updateTask(task);
   }
 
   Future<void> addTask(String title, String description) async {
@@ -32,7 +33,7 @@ class TaskProvider with ChangeNotifier {
       description: description,
     );
     _tasks.add(newTask);
-    await _taskService.saveTasks(_tasks);
+    await _taskService.addTask(newTask);
     notifyListeners();
   }
 
@@ -40,7 +41,7 @@ class TaskProvider with ChangeNotifier {
     final taskIndex = _tasks.indexWhere((e) => e.id == task.id);
     if (taskIndex >= 0) {
       _tasks[taskIndex] = task;
-      await _taskService.saveTasks(_tasks);
+      await _taskService.updateTask(task);
       notifyListeners();
     }
   }
@@ -48,7 +49,7 @@ class TaskProvider with ChangeNotifier {
   Future<void> deleteTask(TaskModel task) async {
     _tasks.remove(task);
     _filteredTasks = _tasks;
-    await _taskService.saveTasks(_tasks);
+    await _taskService.deleteTask(task.id!);
     notifyListeners();
   }
 

@@ -1,11 +1,12 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import 'package:tmanager/core/routers/app_routers.dart';
 import 'package:tmanager/screens/user_interface/widgets/splash_logo_text.dart';
 
 class FirstLoginScreen extends StatelessWidget {
   const FirstLoginScreen({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -22,10 +23,22 @@ class FirstLoginScreen extends StatelessWidget {
               children: [
                 ElevatedButton(
                   onPressed: () async {
-                    final prefs = await SharedPreferences.getInstance();
-                    await prefs.setBool('hasAccount', true);
-                    if (context.mounted) {
-                      context.go(AppRoutes.register.path);
+                    final User? user = FirebaseAuth.instance.currentUser;
+
+                    if (user != null) {
+                      if (user.emailVerified) {
+                        if (context.mounted) {
+                          context.go(AppRoutes.home.path);
+                        }
+                      } else {
+                        if (context.mounted) {
+                          context.go(AppRoutes.verification.path);
+                        }
+                      }
+                    } else {
+                      if (context.mounted) {
+                        context.go(AppRoutes.register.path);
+                      }
                     }
                   },
                   style: ElevatedButton.styleFrom(
