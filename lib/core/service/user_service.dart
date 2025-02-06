@@ -8,32 +8,57 @@ class UserService {
   UserService._internal();
 
   final FirebaseAuth _auth = FirebaseAuth.instance;
-
   final Logger _logger = Logger();
 
-  Future<void> saveLogin(String email, String password) async {
+  Future<UserModel?> registerWithEmailAndPassword({
+    required String email,
+    required String password,
+  }) async {
     try {
-      await _auth.createUserWithEmailAndPassword(
+      final UserCredential credential =
+          await _auth.createUserWithEmailAndPassword(
         email: email,
         password: password,
       );
-      _logger.i('User registered successfully: $email');
+      _logger.i('User registered successfully: ${credential.user?.email}');
+      return UserModel.fromFirebase(credential.user);
     } catch (e) {
       _logger.e('Error during registration: $e');
+      return null;
     }
   }
 
-  Future<UserModel> loadLogin() async {
-    final user = _auth.currentUser;
-    return UserModel(
-      email: user?.email,
-      password: null,
-    );
+  Future<UserModel?> loginWithEmailAndPassword({
+    required String email,
+    required String password,
+  }) async {
+    try {
+      final UserCredential credential = await _auth.signInWithEmailAndPassword(
+        email: email,
+        password: password,
+      );
+      _logger.i('User logged in successfully: ${credential.user?.email}');
+      return UserModel.fromFirebase(credential.user);
+    } catch (e) {
+      _logger.e('Error during login: $e');
+      return null;
+    }
   }
 
-  Future<void> verifyUser() async {
-    final user = FirebaseAuth.instance.currentUser;
+  Future<UserModel?> loadLogin() async {
+    final User? user = _auth.currentUser;
+    if (user != null) {
+      return UserModel.fromFirebase(user);
+    }
+    return null;
+  }
 
+  Future<bool> isLogged() async {
+    return _auth.currentUser != null;
+  }
+
+  Future<void> sendEmailVerification() async {
+    final User? user = _auth.currentUser;
     if (user != null && !user.emailVerified) {
       try {
         await user.sendEmailVerification();
@@ -46,8 +71,12 @@ class UserService {
     }
   }
 
-  Future<bool> isLogged() async {
-    final user = _auth.currentUser;
-    return user != null;
+  Future<void> signOut() async {
+    try {
+      await _auth.signOut();
+      _logger.i('User signed out successfully.');
+    } catch (e) {
+      _logger.e('Error during sign out: $e');
+    }
   }
 }

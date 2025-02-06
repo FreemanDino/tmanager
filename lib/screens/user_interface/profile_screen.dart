@@ -15,8 +15,8 @@ class ProfileScreen extends StatelessWidget {
     final RegExp emailRegex = RegExp(
       r'^[a-zA-Z0-9._%+-]{6,30}@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$',
     );
-    emailController.text = user.email ?? '';
-    passwordController.text = user.password ?? '';
+    emailController.text = user?.email ?? '';
+    passwordController.text = user?.password ?? '';
 
     return Scaffold(
       backgroundColor: Colors.black,
@@ -36,7 +36,7 @@ class ProfileScreen extends StatelessWidget {
             ),
             const SizedBox(height: 20),
             Text(
-              'Электронная почта: ${user.email ?? ''}',
+              'Электронная почта: ${user!.email ?? ''}',
               style: const TextStyle(color: Colors.white, fontSize: 16),
             ),
             const SizedBox(height: 20),
@@ -233,9 +233,10 @@ class ProfileScreen extends StatelessWidget {
                                     content: Text('Пароли не совпадают'),
                                   ),
                                 );
+                                return;
                               } else if (formKey.currentState?.validate() ??
                                   false) {
-                                context.read<UserProvider>().saveLogin(
+                                context.read<UserProvider>().register(
                                       email: emailController.text,
                                       password: passwordController.text,
                                     );

@@ -6,6 +6,7 @@ import '../../core/providers/user_provider.dart';
 
 class RegistrationScreen extends StatefulWidget {
   const RegistrationScreen({super.key});
+
   @override
   RegistrationScreenState createState() => RegistrationScreenState();
 }
@@ -14,9 +15,11 @@ class RegistrationScreenState extends State<RegistrationScreen> {
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
   final _confirmPasswordController = TextEditingController();
+
   final RegExp _emailRegex = RegExp(
     r'^[a-zA-Z0-9._%+-]{6,30}@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$',
   );
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -30,7 +33,9 @@ class RegistrationScreenState extends State<RegistrationScreen> {
               IconButton(
                 icon: const Icon(Icons.arrow_back, color: Colors.white),
                 onPressed: () {
-                  context.go(AppRoutes.login.path);
+                  if (mounted) {
+                    context.go(AppRoutes.login.path);
+                  }
                 },
               ),
               const SizedBox(height: 20),
@@ -132,46 +137,73 @@ class RegistrationScreenState extends State<RegistrationScreen> {
               ),
               const SizedBox(height: 40),
               ElevatedButton(
-                onPressed: () {
+                onPressed: () async {
                   if (_emailController.text.isEmpty ||
                       _passwordController.text.isEmpty ||
                       _confirmPasswordController.text.isEmpty) {
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      const SnackBar(
-                        content: Text('Пожалуйста, заполните все поля'),
-                      ),
-                    );
-                    return;
-                  }
-                  if (!_emailRegex.hasMatch(_emailController.text)) {
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      const SnackBar(
-                        content: Text('Неверный формат электронной почты'),
-                      ),
-                    );
-                    return;
-                  }
-                  if (_passwordController.text.length < 6) {
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      const SnackBar(
-                        content: Text(
-                          'Пароль должен содержать минимум 6 символов',
+                    if (mounted) {
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        const SnackBar(
+                          content: Text('Пожалуйста, заполните все поля'),
                         ),
-                      ),
-                    );
+                      );
+                    }
                     return;
                   }
+
+                  if (!_emailRegex.hasMatch(_emailController.text)) {
+                    if (mounted) {
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        const SnackBar(
+                          content: Text('Неверный формат электронной почты'),
+                        ),
+                      );
+                    }
+                    return;
+                  }
+
+                  if (_passwordController.text.length < 6) {
+                    if (mounted) {
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        const SnackBar(
+                          content: Text(
+                            'Пароль должен содержать минимум 6 символов',
+                          ),
+                        ),
+                      );
+                    }
+                    return;
+                  }
+
                   if (_passwordController.text !=
                       _confirmPasswordController.text) {
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      const SnackBar(content: Text('Пароли не совпадают')),
-                    );
+                    if (mounted) {
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        const SnackBar(content: Text('Пароли не совпадают')),
+                      );
+                    }
+                    return;
+                  }
+
+                  final userProvider = context.read<UserProvider>();
+                  final bool isRegistered = await userProvider.register(
+                    email: _emailController.text,
+                    password: _passwordController.text,
+                  );
+
+                  if (isRegistered) {
+                    if (context.mounted) {
+                      context.go(AppRoutes.verification.path);
+                    }
                   } else {
-                    context.read<UserProvider>().saveLogin(
-                          email: _emailController.text,
-                          password: _confirmPasswordController.text,
-                        );
-                    context.go(AppRoutes.verification.path);
+                    if (context.mounted) {
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        const SnackBar(
+                          content:
+                              Text('Ошибка регистрации. Попробуйте снова.'),
+                        ),
+                      );
+                    }
                   }
                 },
                 style: ElevatedButton.styleFrom(
@@ -197,5 +229,13 @@ class RegistrationScreenState extends State<RegistrationScreen> {
         ),
       ),
     );
+  }
+
+  @override
+  void dispose() {
+    _emailController.dispose();
+    _passwordController.dispose();
+    _confirmPasswordController.dispose();
+    super.dispose();
   }
 }

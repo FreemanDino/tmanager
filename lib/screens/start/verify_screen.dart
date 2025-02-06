@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
@@ -11,62 +13,48 @@ class VerificationScreen extends StatefulWidget {
 }
 
 class VerificationScreenState extends State<VerificationScreen> {
-  final _codeController = TextEditingController();
+  bool _isEmailVerified = false;
+  late final Timer _timer;
 
-  Future<void> _verifyCode() async {
-    // Get the current user from Firebase Auth
+  @override
+  void initState() {
+    super.initState();
+    _resendVerificationEmail();
+
+    // Start a timer to periodically check if the email is verified
+    _timer = Timer.periodic(const Duration(seconds: 3), (_) async {
+      await _checkEmailVerificationStatus();
+    });
+  }
+
+  Future<void> _checkEmailVerificationStatus() async {
     final User? user = FirebaseAuth.instance.currentUser;
-
     if (user != null) {
-      try {
-        // Reload the user's data to get the latest emailVerified status
-        await user.reload();
+      // Reload the user's data to get the latest emailVerified status
+      await user.reload();
+      final updatedUser = FirebaseAuth.instance.currentUser;
 
-        if (!mounted) return; // Ensure the widget is still mounted
+      if (updatedUser != null && updatedUser.emailVerified) {
+        setState(() {
+          _isEmailVerified = true;
+        });
 
-        if (user.emailVerified) {
-          // Navigate to the home screen if the email is verified
-          if (mounted) {
-            context.go(AppRoutes.home.path);
-          }
-        } else {
-          // Show an error message if the email is not verified
-          if (mounted) {
-            ScaffoldMessenger.of(context).showSnackBar(
-              const SnackBar(
-                content: Text('Пожалуйста, подтвердите свою электронную почту'),
-              ),
-            );
-          }
-        }
-      } catch (e) {
-        // Handle errors during the reload process
+        // Stop the timer since the email is verified
+        _timer.cancel();
+
+        // Redirect to the home screen
         if (mounted) {
-          ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(content: Text('Ошибка проверки: $e')),
-          );
+          context.go(AppRoutes.home.path);
         }
-      }
-    } else {
-      // Navigate to the login screen if no user is logged in
-      if (mounted) {
-        context.go(AppRoutes.login.path);
       }
     }
   }
 
   Future<void> _resendVerificationEmail() async {
-    // Get the current user from Firebase Auth
     final User? user = FirebaseAuth.instance.currentUser;
-
     if (user != null && !user.emailVerified) {
       try {
-        // Resend the email verification link
         await user.sendEmailVerification();
-
-        if (!mounted) return; // Ensure the widget is still mounted
-
-        // Show a confirmation message
         if (mounted) {
           ScaffoldMessenger.of(context).showSnackBar(
             const SnackBar(
@@ -75,7 +63,6 @@ class VerificationScreenState extends State<VerificationScreen> {
           );
         }
       } catch (e) {
-        // Handle errors during the resend process
         if (mounted) {
           ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(content: Text('Ошибка отправки письма: $e')),
@@ -83,7 +70,6 @@ class VerificationScreenState extends State<VerificationScreen> {
         }
       }
     } else {
-      // Show a message if the user is not found or already verified
       if (mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
           const SnackBar(
@@ -92,6 +78,12 @@ class VerificationScreenState extends State<VerificationScreen> {
         );
       }
     }
+  }
+
+  @override
+  void dispose() {
+    _timer.cancel(); // Cancel the timer when the widget is disposed
+    super.dispose();
   }
 
   @override
@@ -138,55 +130,20 @@ class VerificationScreenState extends State<VerificationScreen> {
                 ),
               ),
               const SizedBox(height: 60),
-              TextField(
-                style: const TextStyle(color: Colors.white),
-                cursorColor: Colors.white,
-                controller: _codeController,
-                keyboardType: TextInputType.number,
-                maxLength: 6,
-                decoration: InputDecoration(
-                  labelText: 'Введите код из письма',
-                  labelStyle: const TextStyle(color: Colors.white),
-                  border: const OutlineInputBorder(),
-                  enabledBorder: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(7),
-                    borderSide:
-                        const BorderSide(color: Colors.grey, width: 2.0),
-                  ),
-                  focusedBorder: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(7),
-                    borderSide:
-                        const BorderSide(color: Colors.white, width: 2.0),
-                  ),
-                  prefixIcon: const Icon(Icons.email, color: Colors.white),
+              const Text(
+                'Мы отправили письмо с подтверждением на вашу электронную почту. Пожалуйста, проверьте вашу почту и подтвердите адрес.',
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 16,
+                  fontFamily: 'Roboto',
+                  fontWeight: FontWeight.normal,
                 ),
               ),
               const SizedBox(height: 40),
-              ElevatedButton(
-                onPressed: _verifyCode,
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: Colors.white,
-                  foregroundColor: Colors.black,
-                  padding:
-                      const EdgeInsets.symmetric(vertical: 20, horizontal: 50),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(7),
-                  ),
-                ),
-                child: const Text(
-                  'Подтвердить',
-                  style: TextStyle(
-                    fontSize: 16,
-                    fontFamily: 'Roboto',
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-              ),
-              const SizedBox(height: 20),
               TextButton(
                 onPressed: _resendVerificationEmail,
                 child: const Text(
-                  'Отправить письмо повторно',
+                  'Отправить письмо',
                   style: TextStyle(
                     color: Colors.white,
                     fontSize: 14,
@@ -195,6 +152,18 @@ class VerificationScreenState extends State<VerificationScreen> {
                   ),
                 ),
               ),
+              if (_isEmailVerified)
+                const Center(
+                  child: Text(
+                    'Ваша электронная почта подтверждена! Перенаправление...',
+                    style: TextStyle(
+                      color: Colors.green,
+                      fontSize: 16,
+                      fontFamily: 'Roboto',
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ),
             ],
           ),
         ),

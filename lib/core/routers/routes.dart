@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
@@ -13,6 +14,11 @@ import '../../screens/start/splash_screen.dart';
 import '../../screens/start/verify_screen.dart';
 import '../../screens/user_interface/home_screen.dart';
 import 'app_routers.dart';
+
+String? getCurrentUserId() {
+  final user = FirebaseAuth.instance.currentUser;
+  return user?.uid;
+}
 
 final GoRouter router = GoRouter(
   initialLocation: '/',
@@ -56,9 +62,20 @@ final GoRouter router = GoRouter(
               );
         return EditTaskScreen(
           task: task,
-          onSave: (updatedTitle, updatedDescription) {
-            Provider.of<TaskProvider>(context, listen: false).updateTask(task);
-            Navigator.pop(context);
+          onSave: (taskId, updatedTitle, updatedDescription) async {
+            final userProvider =
+                Provider.of<UserProvider>(context, listen: false);
+            final userId = userProvider.userId ?? '';
+
+            final updatedTask = task.copyWith(
+              title: updatedTitle,
+              description: updatedDescription,
+            );
+            await Provider.of<TaskProvider>(context, listen: false)
+                .updateTask(userId, updatedTask);
+            if (context.mounted) {
+              Navigator.pop(context);
+            }
           },
         );
       },
@@ -66,11 +83,8 @@ final GoRouter router = GoRouter(
   ],
   redirect: (BuildContext context, GoRouterState state) async {
     final userProvider = Provider.of<UserProvider>(context, listen: false);
-
     await userProvider.init();
-
     final isLoggedIn = userProvider.isLogged;
-
     final isLoginRoute = state.uri.path == AppRoutes.login.path;
     final isRegisterRoute = state.uri.path == AppRoutes.register.path;
     final isVerificationRoute = state.uri.path == AppRoutes.verification.path;
@@ -84,9 +98,18 @@ final GoRouter router = GoRouter(
       return AppRoutes.login.path;
     }
 
-    if (isLoggedIn &&
-        (isLoginRoute || isRegisterRoute || isVerificationRoute)) {
-      return AppRoutes.home.path;
+    if (isLoggedIn) {
+      final User? firebaseUser = FirebaseAuth.instance.currentUser;
+      final isEmailVerified = firebaseUser?.emailVerified ?? false;
+
+      if (!isEmailVerified && state.uri.path != AppRoutes.verification.path) {
+        return AppRoutes.verification.path;
+      }
+
+      if (isEmailVerified &&
+          (isLoginRoute || isRegisterRoute || isVerificationRoute)) {
+        return AppRoutes.home.path;
+      }
     }
 
     return null;

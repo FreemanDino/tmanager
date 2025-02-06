@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
@@ -7,10 +8,14 @@ import 'package:tmanager/core/providers/task_provider.dart';
 import 'package:tmanager/core/routers/app_routers.dart';
 import 'package:tmanager/screens/user_interface/edit_task_screen.dart';
 import 'package:tmanager/screens/user_interface/widgets/home_logo_text.dart';
-import 'package:uuid/uuid.dart';
 import 'profile_screen.dart';
 import 'settings_screen.dart';
-import 'task_list_screen.dart';
+// import 'task_list_screen.dart';
+
+String? getCurrentUserId() {
+  final user = FirebaseAuth.instance.currentUser;
+  return user?.uid;
+}
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
@@ -31,7 +36,7 @@ class HomeScreen extends StatelessWidget {
         child: IndexedStack(
           index: index,
           children: const [
-            TaskListScreen(),
+            // TaskListScreen(),
             ProfileScreen(),
             SettingsScreen(),
           ],
@@ -48,9 +53,10 @@ class HomeScreen extends StatelessWidget {
                     builder: (context) => EditTaskScreen(
                       task: null,
                       isNew: true,
-                      onSave: (title, description) {
+                      onSave:
+                          (String taskId, String title, String description) {
                         final newTask = TaskModel(
-                          id: const Uuid().v4(),
+                          id: taskId,
                           title: title,
                           description: description,
                         );

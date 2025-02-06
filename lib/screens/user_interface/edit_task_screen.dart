@@ -1,12 +1,18 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:tmanager/core/models/task_model.dart';
 import 'package:tmanager/core/providers/task_provider.dart';
 import 'package:tmanager/screens/user_interface/widgets/home_logo_text.dart';
 
+String? getCurrentUserId() {
+  final user = FirebaseAuth.instance.currentUser;
+  return user?.uid;
+}
+
 class EditTaskScreen extends StatefulWidget {
   final TaskModel? task;
-  final Function(String, String) onSave;
+  final Function(String taskId, String title, String description) onSave;
   final bool isNew;
 
   const EditTaskScreen({
@@ -69,9 +75,12 @@ class EditTaskScreenState extends State<EditTaskScreen> {
         });
         return;
       }
-    }
 
-    widget.onSave(title, description);
+      final userId = getCurrentUserId();
+      if (userId != null) {
+        widget.onSave(userId, title, description);
+      }
+    }
     Navigator.pop(context);
   }
 

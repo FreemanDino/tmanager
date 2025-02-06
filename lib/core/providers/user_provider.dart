@@ -4,20 +4,68 @@ import 'package:tmanager/core/service/user_service.dart';
 
 class UserProvider with ChangeNotifier {
   final _userService = UserService.instance;
+  UserModel? _user;
 
-  UserModel _user = UserModel();
+  // Getter for the current user
+  UserModel? get user => _user;
 
-  UserModel get user => _user;
+  // Getter to check if the user is logged in
+  bool get isLogged => _user != null;
 
-  bool get isLogged => _user.email != null && _user.password != null;
+  // Getter to retrieve the userId from the UserModel
+  String? get userId => _user?.uid; // Assuming UserModel has an 'id' field
 
+  // Initialize the user provider by loading the logged-in user
   Future<void> init() async {
     _user = await _userService.loadLogin();
     notifyListeners();
   }
 
-  void saveLogin({required String email, required String password}) {
-    _userService.saveLogin(email, password);
-    init();
+  // Register a new user
+  Future<bool> register({
+    required String email,
+    required String password,
+  }) async {
+    final UserModel? newUser = await _userService.registerWithEmailAndPassword(
+      email: email,
+      password: password,
+    );
+    if (newUser != null) {
+      _user = newUser;
+      notifyListeners();
+      return true;
+    }
+    return false;
+  }
+
+  // Log in an existing user
+  Future<bool> login({
+    required String email,
+    required String password,
+  }) async {
+    final UserModel? loggedInUser =
+        await _userService.loginWithEmailAndPassword(
+      email: email,
+      password: password,
+    );
+    if (loggedInUser != null) {
+      _user = loggedInUser;
+      notifyListeners();
+      return true;
+    }
+    return false;
+  }
+
+  // Log out the current user
+  Future<void> logout() async {
+    await _userService.signOut();
+    _user = null;
+    notifyListeners();
+  }
+
+  // Send email verification to the current user
+  Future<void> sendEmailVerification() async {
+    await _userService.sendEmailVerification();
+    notifyListeners();
   }
 }
