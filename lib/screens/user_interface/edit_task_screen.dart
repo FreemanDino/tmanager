@@ -4,6 +4,7 @@ import 'package:provider/provider.dart';
 import 'package:tmanager/core/models/task_model.dart';
 import 'package:tmanager/core/providers/task_provider.dart';
 import 'package:tmanager/screens/user_interface/widgets/home_logo_text.dart';
+import 'package:uuid/uuid.dart';
 
 String? getCurrentUserId() {
   final user = FirebaseAuth.instance.currentUser;
@@ -31,6 +32,9 @@ class EditTaskScreenState extends State<EditTaskScreen> {
   late TextEditingController _descriptionController;
   late TaskModel _editedTask;
   String? _errorMessage;
+  final Uuid _uuid = const Uuid();
+
+  String get taskId => _editedTask.id ?? _uuid.v4();
 
   @override
   void initState() {
@@ -76,12 +80,9 @@ class EditTaskScreenState extends State<EditTaskScreen> {
         return;
       }
 
-      final userId = getCurrentUserId();
-      if (userId != null) {
-        widget.onSave(userId, title, description);
-      }
+      widget.onSave(taskId, title, description);
     }
-    Navigator.pop(context);
+    if (context.mounted) Navigator.pop(context);
   }
 
   @override

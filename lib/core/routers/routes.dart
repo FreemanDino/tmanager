@@ -63,16 +63,16 @@ final GoRouter router = GoRouter(
         return EditTaskScreen(
           task: task,
           onSave: (taskId, updatedTitle, updatedDescription) async {
-            final userProvider =
-                Provider.of<UserProvider>(context, listen: false);
-            final userId = userProvider.userId ?? '';
+            Provider.of<UserProvider>(context, listen: false);
 
             final updatedTask = task.copyWith(
               title: updatedTitle,
               description: updatedDescription,
             );
+
             await Provider.of<TaskProvider>(context, listen: false)
-                .updateTask(userId, updatedTask);
+                .updateTask(updatedTask);
+
             if (context.mounted) {
               Navigator.pop(context);
             }

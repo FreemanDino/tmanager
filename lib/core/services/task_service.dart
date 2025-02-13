@@ -4,7 +4,6 @@ import 'package:tmanager/core/models/task_model.dart';
 class TaskService {
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
 
-  // Загрузка задач для конкретного пользователя
   Future<List<TaskModel>> loadTasks(String userId) async {
     final snapshot = await _firestore
         .collection('users')
@@ -21,7 +20,6 @@ class TaskService {
     }).toList();
   }
 
-  // Сохранение списка задач для конкретного пользователя
   Future<void> saveTasks(String userId, List<TaskModel> tasks) async {
     final batch = _firestore.batch();
     final tasksCollection =
@@ -33,7 +31,6 @@ class TaskService {
     await batch.commit();
   }
 
-  // Добавление новой задачи для конкретного пользователя
   Future<void> addTask(String userId, TaskModel task) async {
     await _firestore
         .collection('users')
@@ -42,7 +39,6 @@ class TaskService {
         .add(task.toMap());
   }
 
-  // Обновление задачи для конкретного пользователя
   Future<void> updateTask(String userId, TaskModel task) async {
     await _firestore
         .collection('users')
@@ -52,7 +48,6 @@ class TaskService {
         .update(task.toMap());
   }
 
-  // Удаление задачи для конкретного пользователя
   Future<void> deleteTask(String userId, String taskId) async {
     await _firestore
         .collection('users')

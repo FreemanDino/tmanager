@@ -10,7 +10,7 @@ import 'package:tmanager/screens/user_interface/edit_task_screen.dart';
 import 'package:tmanager/screens/user_interface/widgets/home_logo_text.dart';
 import 'profile_screen.dart';
 import 'settings_screen.dart';
-// import 'task_list_screen.dart';
+import 'task_list_screen.dart';
 
 String? getCurrentUserId() {
   final user = FirebaseAuth.instance.currentUser;
@@ -36,7 +36,7 @@ class HomeScreen extends StatelessWidget {
         child: IndexedStack(
           index: index,
           children: const [
-            // TaskListScreen(),
+            TaskListScreen(),
             ProfileScreen(),
             SettingsScreen(),
           ],
