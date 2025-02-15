@@ -11,7 +11,6 @@ String? getCurrentUserId() {
 
 class TaskProvider with ChangeNotifier {
   final TaskService _taskService = TaskService();
-
   List<TaskModel> _tasks = [];
   List<TaskModel> get tasks => _tasks;
 
@@ -22,13 +21,11 @@ class TaskProvider with ChangeNotifier {
     final userId = getCurrentUserId();
     if (userId == null) return;
 
-    _isLoading = true;
     notifyListeners();
 
     _tasks = await _taskService.loadTasks(userId);
     _filteredTasks = _tasks;
 
-    _isLoading = false;
     notifyListeners();
   }
 

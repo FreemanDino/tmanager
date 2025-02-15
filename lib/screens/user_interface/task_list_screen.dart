@@ -32,10 +32,6 @@ class _TaskListScreenState extends State<TaskListScreen> {
     final provider = context.watch<TaskProvider>();
     final tasks = provider.filteredTasks;
 
-    if (provider.isLoading) {
-      return const Center(child: CircularProgressIndicator());
-    }
-
     return Column(
       children: [
         ColoredBox(
