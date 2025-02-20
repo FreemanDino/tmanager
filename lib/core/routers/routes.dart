@@ -9,6 +9,7 @@ import 'package:tmanager/core/providers/user_provider.dart';
 import 'package:tmanager/screens/start/login_screen.dart';
 import 'package:tmanager/screens/user_interface/edit_task_screen.dart';
 import 'package:tmanager/screens/user_interface/profile_screen.dart';
+import 'package:tmanager/screens/user_interface/settings_screen.dart';
 import '../../screens/start/register_screen.dart';
 import '../../screens/start/splash_screen.dart';
 import '../../screens/start/verify_screen.dart';
@@ -49,7 +50,7 @@ final GoRouter router = GoRouter(
     ),
     GoRoute(
       path: AppRoutes.settings.path,
-      builder: (context, state) => const SizedBox(),
+      builder: (context, state) => const SettingsScreen(),
     ),
     GoRoute(
       path: AppRoutes.editTask.path,

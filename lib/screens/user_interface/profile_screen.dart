@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
+import 'package:tmanager/core/providers/navigation_provider.dart';
+import 'package:tmanager/core/routers/app_routers.dart';
+import 'package:tmanager/screens/user_interface/widgets/home_logo_text.dart';
 import '../../core/providers/user_provider.dart';
 
 class ProfileScreen extends StatelessWidget {
@@ -7,6 +11,7 @@ class ProfileScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final index = context.watch<MainNavigationProvider>().currentIndex;
     final user = context.select((UserProvider p) => p.user);
     final GlobalKey<FormState> formKey = GlobalKey<FormState>();
     final emailController = TextEditingController();
@@ -20,6 +25,12 @@ class ProfileScreen extends StatelessWidget {
 
     return Scaffold(
       backgroundColor: Colors.black,
+      appBar: AppBar(
+        backgroundColor: Colors.black,
+        elevation: 0,
+        centerTitle: true,
+        title: const HomeLogoText(),
+      ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Column(
@@ -289,6 +300,39 @@ class ProfileScreen extends StatelessWidget {
             ),
           ],
         ),
+      ),
+      bottomNavigationBar: BottomNavigationBar(
+        backgroundColor: Colors.black,
+        selectedItemColor: Colors.red,
+        unselectedItemColor: Colors.white,
+        currentIndex: index,
+        onTap: (index) {
+          context.read<MainNavigationProvider>().setCurrentIndex(index);
+          switch (index) {
+            case 0:
+              context.go(AppRoutes.home.path);
+              break;
+            case 1:
+              break;
+            case 2:
+              context.go(AppRoutes.settings.path);
+              break;
+          }
+        },
+        items: const [
+          BottomNavigationBarItem(
+            icon: Icon(Icons.home),
+            label: 'Главная',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.person),
+            label: 'Профиль',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.settings),
+            label: 'Настройки',
+          ),
+        ],
       ),
     );
   }
